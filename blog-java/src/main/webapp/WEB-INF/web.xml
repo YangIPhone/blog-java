@@ -5,7 +5,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	
 	<!-- spring的配置文件-->
-	<!--
+	<!--service包、pojo包和mapper包准备好之前加载Spring配置会报404
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:applicationContext.xml</param-value>
@@ -32,4 +32,17 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
+	<!-- 编码过滤器，解决乱码问题 -->
+	<filter>  
+        <filter-name>encodingFilter</filter-name>  
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>  
+        <init-param>  
+            <param-name>encoding</param-name>  
+            <param-value>UTF-8</param-value>  
+        </init-param>  
+    </filter>  
+    <filter-mapping>  
+        <filter-name>encodingFilter</filter-name>  
+        <url-pattern>/*</url-pattern>  
+    </filter-mapping>  
 </web-app>

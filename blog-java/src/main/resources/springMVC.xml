@@ -12,18 +12,35 @@
         http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 
 
-
+	<!-- 注解驱动 并解决json乱码 -->
+  <mvc:annotation-driven >  
+        <mvc:message-converters register-defaults="true">  
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter" >  
+                <property name = "supportedMediaTypes">  
+                    <list>  
+                        <value>application/json;charset=utf-8</value>  
+                        <value>text/html;charset=utf-8</value>  
+                        <!-- application 可以在任意 form 表单里面 enctype 属性默认找到 -->  
+                        <value>application/x-www-form-urlencoded</value>  
+                    </list>  
+                </property>  
+            </bean>  
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter" ></bean>  
+        </mvc:message-converters>  
+    </mvc:annotation-driven>  
+    
+    <mvc:default-servlet-handler />
+    
+    <!-- 静态页面，如html,css,js,images可以访问 -->
+	<mvc:resources location="/WEB-INF/static/js/" mapping="/js/**"/>
+	<mvc:resources location="/WEB-INF/static/css/" mapping="/css/**"/>
+    <mvc:resources location="/WEB-INF/static/image/" mapping="/image/**"/>
     <context:annotation-config/>
 
     <context:component-scan base-package="com.yang.controller">
           <context:include-filter type="annotation" 
           expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
-
-    <mvc:annotation-driven />
-    
-    <mvc:default-servlet-handler />
-
 
     <bean
         class="org.springframework.web.servlet.view.InternalResourceViewResolver">

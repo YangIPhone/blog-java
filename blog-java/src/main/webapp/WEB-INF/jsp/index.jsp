@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-${index}
+欢迎你：${username}
 </body>
 </html>
