@@ -1,10 +1,11 @@
+
 	function sub(that)
 	{
 	var tip=$('#tip');
 	var url="login";
 	var parent=that.parentNode;//按钮的父级元素————即将提交的表单
 	var oData=new FormData(parent);
-	//$.post(url,{Nickname:"oData"},function(data){console.log("data")});
+	$.post(url,{Nickname:"oData"},function(data){console.log("data")});
 	$.ajax({
 	  url:url,
 	  type:'POST',

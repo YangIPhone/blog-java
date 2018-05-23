@@ -10,8 +10,9 @@
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
-	<link rel="stylesheet" href="css/style.css" type="text/css" media="all">
+	<link rel="stylesheet" href="layui/css/layui.css">
+	<link rel="icon" type="image/png" href="image/favicon.png">
+	<script type="text/javascript" src="layui/layui.js"></script>
 	<script type="text/javascript" src="js/jquery-3.2.1.js"></script>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
@@ -19,71 +20,54 @@
 <!-- //Head -->
 
 <!-- Body -->
-<body>
+<body style="background: #888">
+<div class="layui-main" style="width:500px; margin-top:10%;text-align:center;" id="div1"  hidden>
+<img  src="image/logoa.png">
+<form class="layui-form layui-form-pane" style="margin-top:25px;" id="form" method="post">
+  <div class="layui-form-item" pane> 
+    <label class="layui-form-label"><i class="layui-icon layui-icon-user">用户名</i>   </label>
+    <div class="layui-input-block">
+      <input type="text" name="username" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+  <div class="layui-form-item" pane>
+    <label class="layui-form-label"><i class="layui-icon layui-icon-circle-dot">密码</i></label>
+    <div class="layui-input-block">
+      <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+    </div>
+  </div>
+</form>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" id="sub">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+var div = $('#div1');
+div.fadeIn(5000);
 
-	<h1>登录</h1>
-    <div class="container w3layouts agileits" style="width: 30%;height: 30%;position: absolute; top: 30%;left: 30%;display: none;"
-     id="getbackpwd">
-    <div class="send-button w3layouts agileits">
-			<form action="" method="post" target="hidden_iframe">
-				<input type="text" Name="Email" placeholder="邮箱" required>
-				<input type="password" Name="Password" placeholder="密码" required>				
-				<input type="submit" onclick="gbp(this);" value="找回密码">
-				<input type="submit" onclick="cancel();" value="取消">					
-			</form>
-			</div>
-			<div class="clear" style="color: #fff" id="tip2"></div>
-			</div>
-
-	<div style="display: block;" id="login">
-	<div class="container w3layouts agileits">
-		<div class="login w3layouts agileits">
-			<h2>登 录</h2>
-			<form action="login" method="post">
-				<input type="text" Name="Username" placeholder="昵称/邮箱" required="">
-				<input type="password" Name="Password" placeholder="密码" required="">			
-			<ul class="tick w3layouts agileits">
-				<li>
-					<input type="checkbox" id="brand1" name="remember" value="1">
-					<label for="brand1"><span></span>30内记住我</label>
-				</li>
-			</ul>
-			<div class="send-button w3layouts agileits">				
-					<input type="submit" value="登 录">
-				</form>
-			</div>
-			<a href="#" onclick="getbackpwd();">找回密码</a>
-			<div class="social-icons w3layouts agileits">
-				<p>- 其他方式登录 -</p>
-				<ul>
-					<li class="qq"><a href="#">
-					<span class="icons w3layouts agileits"></span>
-					<span class="text w3layouts agileits">QQ</span></a></li>
-					<li class="weibo w3ls"><a href="#">
-					<span class="icons w3layouts"></span>
-					<span class="text w3layouts agileits">微博</span></a></li>
-					<li class="baidu aits"><a href="#">
-					<span class="icons agileits"></span>
-					<span class="text w3layouts agileits">百度</span></a></li>
-					<div class="clear"> </div>
-				</ul>
-			</div>
-			<div class="clear"></div>
-		</div>
-		<div class="register w3layouts agileits">
-			<h2>注 册</h2>
-			<div class="send-button w3layouts agileits">
-			<form method="post" id="form" target="hidden_iframe">
-				<input type="text" Name="Nickname" placeholder="昵称" required="">
-				<input type="text" Name="Email" placeholder="邮箱" required="">
-				<input type="password" Name="Password" placeholder="密码" required="">	
-				<input type="button" id="b1" onclick="sub(this);" value="免费注册">											
-			</form>
-			</div>
-			<div class="clear" style="color: #fff" id="tip"></div>
-		</div>
-		<div class="clear"></div>
-	</div>
-	<iframe name="hidden_iframe" src="about:blank" style="display:none;"></iframe>
+$('#sub').click(function(){
+	var url="login";
+	var form=document.getElementById("form");//即将提交的表单
+	console.log(form);
+	var oData=new FormData(form);
+	//$.post(url,{Nickname:"oData"},function(data){console.log("data")});
+	$.ajax({
+	  url:url,
+	  type:'POST',
+	  data:oData, 
+	  dataType:'json',
+      processData: false,  
+      contentType: false,
+	  success:function(res)
+	  {
+	  	//tip.html(res.Nickname);
+	   console.log(res);
+	  }
+	});
+});
+</script>
 </body>
 </html>
