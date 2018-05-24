@@ -28,7 +28,7 @@
   <div class="layui-form-item" pane> 
     <label class="layui-form-label"><i class="layui-icon layui-icon-user">用户名</i>   </label>
     <div class="layui-input-block">
-      <input type="text" name="username" id="username" required  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+      <input type="text" name="userid" id="userid" required  placeholder="请输入账号" autocomplete="off" class="layui-input">
     </div>
   </div>
   <div class="layui-form-item" pane>
@@ -49,12 +49,12 @@ var div = $('#div1');
 div.fadeIn(5000);
 
 $('#login').click(function(){
-	var username=$('#username').val();
+	var userid=$('#userid').val();
 	var password=$('#password').val();
 	var url="login";
-	if(username!=""&&password!="")
+	if(userid!=""&&password!="")
 		{
-		$.post(url,{username:username,password:password},function(data){
+		$.post(url,{userid:userid,password:password},function(data){
 			if(data.status=="NO")
 				{
 				layer.open({

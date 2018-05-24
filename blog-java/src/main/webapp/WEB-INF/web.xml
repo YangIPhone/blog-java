@@ -5,7 +5,7 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	
 	<!-- spring的配置文件-->
-	<!--service包、pojo包和mapper包准备好之前加载Spring配置会报404
+	<!--service包、pojo包和mapper包准备好之前加载Spring配置会报404-->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:applicationContext.xml</param-value>
@@ -13,7 +13,7 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	-->
+	
 	
 	
 	<!-- spring mvc核心：分发servlet -->
