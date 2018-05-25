@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,8 +23,15 @@ import com.yang.bean.Progress;
 
 public class FormDataUtil {
 	private HttpServletRequest req;
+	private String name=null;
 	private Map<String,Object> formdata=new HashMap<>();
+	private List<String> srclist=new ArrayList<>();
+			
 	public FormDataUtil(HttpServletRequest request) {
+		this.req=request;
+	}
+	public FormDataUtil(String name,HttpServletRequest request) {
+		this.name=name;
 		this.req=request;
 	}
 	public Map<String,Object> getFormData()
@@ -54,7 +62,7 @@ public class FormDataUtil {
 				}else {
 					//False 为上传文件，则调用getInputStream方法得到数据输入流，从而读取上传数据。
 					//getName()方法获取上传文件名
-					String filename=list.get(i).getName();
+					String filename=name+"_"+list.get(i).getName();
 //					System.out.println(filename);
 					InputStream in=list.get(i).getInputStream();
 					OutputStream out=new FileOutputStream(req.getServletContext().getRealPath("WEB-INF/uploadfile/"+filename));
@@ -62,6 +70,8 @@ public class FormDataUtil {
 					IOUtil.closeStream(in, out);
 					//删除临时文件
 					list.get(i).delete();
+					//将路径加入集合
+					srclist.add("uploadfile/"+filename);				
 				}
 			}
 		} catch (FileUploadException|IOException e) {
@@ -106,6 +116,7 @@ public class FormDataUtil {
 				req.getSession().setAttribute("Progress", progress);
 			}			
 		});
+		formdata.put("src", srclist);
 		return formdata;
 	}
 }

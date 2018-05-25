@@ -6,8 +6,7 @@
 <!-- Head -->
 <head>
 
-	<title>登录</title>
-
+	<title>§流い年§博客社区</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" href="layui/css/layui.css">
@@ -16,7 +15,6 @@
 	<script type="text/javascript" src="layui/layui.all.js"></script>
 	<script type="text/javascript" src="js/jquery-3.2.1.js"></script>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="js/script.js"></script>
 </head>
 <!-- //Head -->
 
@@ -46,7 +44,9 @@
 </div>
 <script type="text/javascript">
 var div = $('#div1');
-div.fadeIn(5000);
+div.slideDown(3000);
+//div.show(3000);
+//div.fadeIn(3000);
 
 $('#login').click(function(){
 	var userid=$('#userid').val();

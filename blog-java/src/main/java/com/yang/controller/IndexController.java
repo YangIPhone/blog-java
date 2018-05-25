@@ -15,13 +15,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.yang.pojo.Article;
 import com.yang.pojo.User;
+import com.yang.service.ArticleService;
 import com.yang.service.UserService;
 
 @Controller
 public class IndexController {
 	@Autowired
 	UserService userService;
+	@Autowired
+	ArticleService articleService;
 	@RequestMapping(value="/index",method=RequestMethod.GET)
 	public String index(Model model,HttpSession session)
 	{	
@@ -30,13 +34,15 @@ public class IndexController {
 		{
 			return "redirect:login";
 		}
+		List<Article> articlelist=articleService.getArticleList();
+		model.addAttribute("articlelist", articlelist);
 		model.addAttribute("username",username);
 		return "index";
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String login(Model model,HttpServletRequest req)
-	{	System.out.println("login get");
+	{
 		return "login";
 	}
 	
@@ -46,18 +52,19 @@ public class IndexController {
 	{	
 		String userid=users.getUserid();
 		String password=users.getPassword();
-		Map<String, Object> value =new HashMap<>();
+		Map<String, Object> tips =new HashMap<>();
 		User user=userService.getUserByUseridAndPwd(userid, password);
 		if(user!=null)
 		{
-			value.put("status", "YES");
-			value.put("msg", "登录成功");
+			tips.put("status", "YES");
+			tips.put("msg", "登录成功");
+			session.setAttribute("userid", user.getUserid());
 			session.setAttribute("username", user.getUsername());
 		}else {
-			value.put("status", "NO");
-			value.put("msg", "用户名或密码错误");
+			tips.put("status", "NO");
+			tips.put("msg", "用户名或密码错误");
 		}
-		return JSON.toJSONString(value);//返回json字符串
+		return JSON.toJSONString(tips);//返回json字符串 
 	}
 	
 }

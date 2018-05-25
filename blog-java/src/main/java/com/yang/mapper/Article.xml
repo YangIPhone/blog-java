@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.yang.mapper.ArticleMapper">
+	    <select id="getArticleList" resultType="Article">
+	        select * from  article  order by time DESC limit 0,10 
+	    </select>	
+	    <select id="getArticleByArticleid" resultType="Article" parameterType="string">
+	    	select * from article where articleid= #{articleid}
+	    </select> 
+	    <select id="getArticleByUserid" resultType="Article" parameterType="string">
+	    	select * from article where userid= #{userid}
+	    </select>
+	    <select id="getArticleByType" resultType="Article" parameterType="string">
+	    	select * from article where type= #{type}
+	    </select>
+	    <insert id="addArticle" parameterType="Article" >
+	        insert into Article (title,content,type,userid,username,time,clicknum)
+	          values (#{title},#{content},#{type},#{userid},#{username},#{time},#{clicknum})    
+	    </insert>
+	    <update id="updateArticle" parameterType="Article" >
+	        update article set title=#{title},content=#{content},clicknum=#{clicknum} where articleid=#{articleid}    
+	    </update>    
+	    <delete id="delArticle" parameterType="int" >
+	        delete from article where articleid= #{articleid}   
+	    </delete>
+	</mapper>
+
