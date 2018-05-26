@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,7 @@ public class FormDataUtil {
 	private String name=null;
 	private Map<String,Object> formdata=new HashMap<>();
 	private List<String> srclist=new ArrayList<>();
+	private LocalDateTime localtime=LocalDateTime.now();
 			
 	public FormDataUtil(HttpServletRequest request) {
 		this.req=request;
@@ -61,17 +63,24 @@ public class FormDataUtil {
 					formdata.put(name, value);
 				}else {
 					//False 为上传文件，则调用getInputStream方法得到数据输入流，从而读取上传数据。
+					//获取当前日期
+					String data=localtime.toLocalDate().toString();
 					//getName()方法获取上传文件名
-					String filename=name+"_"+list.get(i).getName();
-//					System.out.println(filename);
+					String filename=list.get(i).getName();
+					//保存路径
+					String path=req.getServletContext().getRealPath("WEB-INF/uploadfile/")+data+"/"+name;
+					//创建文件夹
+					new File(path).mkdirs();
+					path=path+"/"+filename;
+//					System.out.println(path);
 					InputStream in=list.get(i).getInputStream();
-					OutputStream out=new FileOutputStream(req.getServletContext().getRealPath("WEB-INF/uploadfile/"+filename));
+					OutputStream out=new FileOutputStream(path);
 					IOUtil.inToOut(in,out);
 					IOUtil.closeStream(in, out);
 					//删除临时文件
 					list.get(i).delete();
 					//将路径加入集合
-					srclist.add("uploadfile/"+filename);				
+					srclist.add("uploadfile/"+data+"/"+name+"/"+filename);				
 				}
 			}
 		} catch (FileUploadException|IOException e) {

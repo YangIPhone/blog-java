@@ -36,6 +36,11 @@ public class ArticleController {
 		return "warticle";
 	}
 	
+	/**
+	 * 发表文章的接口
+	 * @param article 文章内容对象
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/warticle",method=RequestMethod.POST)
 	public String wArticle1(Article article){
@@ -52,13 +57,19 @@ public class ArticleController {
 		return JSONObject.toJSONString(tips);
 	}
 	
+	/**
+	 * 写文章时插入图片的接口
+	 * @param req HttpServletRequest
+	 * @param session HttpSession
+	 * @return 固定格式的json数据
+	 */
 	@ResponseBody
 	@RequestMapping(value="/articleimg",method=RequestMethod.POST)
 	public String saveArticleimg(HttpServletRequest req,HttpSession session) {
+		String userid=(String) session.getAttribute("userid");
 		Map<String, Object> tips =new HashMap<>();
 		Map<String, Object> data =new HashMap<>();
-		Map<String, Object> filesrc =new HashMap<>();
-		String userid=(String) session.getAttribute("userid");
+		Map<String, Object> filesrc =new HashMap<>();		
 		FormDataUtil formdata=new FormDataUtil(userid,req);
 		filesrc=formdata.getFormData();
 		List<String> srclist=(List<String>) filesrc.get("src");
@@ -69,6 +80,13 @@ public class ArticleController {
 		return JSONObject.toJSONString(tips);
 	}
 	
+	/**
+	 * 根据get的文章ID查看文章
+	 * @param model   Model
+	 * @param req     HttpServletRequest
+	 * @param session HttpSession
+	 * @return
+	 */
 	@RequestMapping(value="/article",method=RequestMethod.GET)
 	public String lookArticle(Model model,HttpServletRequest req,HttpSession session)
 	{
@@ -81,5 +99,10 @@ public class ArticleController {
 		Article article=articleService.getArticleByArticleid(articleid);//按文章ID查找文章
 		model.addAttribute("article", article);
 		return "article";
+	}
+	
+	@RequestMapping(value="/articlelist",method=RequestMethod.GET)
+	public String articleList() {
+		return "articleList";
 	}
 }

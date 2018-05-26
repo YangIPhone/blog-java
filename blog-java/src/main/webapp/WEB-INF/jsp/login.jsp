@@ -30,7 +30,7 @@
     </div>
   </div>
   <div class="layui-form-item" pane>
-    <label class="layui-form-label"><i class="layui-icon layui-icon-circle-dot">密码</i></label>
+    <label class="layui-form-label"><i class="layui-icon layui-icon-password">密码</i></label>
     <div class="layui-input-block">
       <input type="password" name="password" id="password" required  placeholder="请输入密码" autocomplete="off" class="layui-input">
     </div>

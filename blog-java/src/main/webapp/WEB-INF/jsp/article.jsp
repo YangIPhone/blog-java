@@ -88,6 +88,7 @@
 	  		<div style="color: #fff;">
     		<span><i class="layui-icon">&#xe66f;</i>作者:${article.username}</span>
     		<span style="margin-left: 50px;"><i class="layui-icon">&#xe6c6;</i>${article.clicknum}人已赞</span>
+    		<span style="margin-left: 50px;"><i class="layui-icon">&#xe66e;</i>文章类型:${article.type}</span>
     		<span style="margin-left: 50px;"><i class="layui-icon">&#xe637;</i>发布日期:${article.time}</span>
   			</div>
     </div>
