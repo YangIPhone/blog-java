@@ -25,9 +25,9 @@
     <li class="layui-nav-item">
         <a href="javascript:;">文章论坛</a>
         <dl class="layui-nav-child">
-          <dd><a href="">技术博客</a></dd>
-          <dd><a href="">心情随笔</a></dd>
-          <dd><a href="">生活琐事</a></dd>
+          <dd><a href="articlelist?by=type&value=技术博客">技术博客</a></dd>
+          <dd><a href="articlelist?by=type&value=心情随笔">心情随笔</a></dd>
+          <dd><a href="articlelist?by=type&value=生活琐事">生活琐事</a></dd>
         </dl>
       </li>
                  
@@ -60,11 +60,10 @@
           <dl class="layui-nav-child">
             <dd><a href="javascript:;">专属相册</a></dd>
             <dd><a href="javascript:;">留言列表</a></dd>
-            <dd><a href="javascript:;">我的博客</a></dd>
+            <dd><a href="articlelist?by=uid&value=${sessionScope.userid }">我的博客</a></dd>
             <dd><a href="">我的资源</a></dd>
           </dl>
-        </li>
-        <li class="layui-nav-item"><a href=""><i class="layui-icon">&#xe642;</i>写博客</a></li>
+        </li><li class="layui-nav-item"><a href="warticle?userid=${sessionScope.userid }"><i class="layui-icon">&#xe642;</i>写博客</a></li>
         <li class="layui-nav-item"><a href=""><i class="layui-icon">&#xe681;</i>上传资源</a></li>
         <li class="layui-nav-item"><a href=""><i class="layui-icon">&#xe63a;</i>我要提问</a></li>
       </ul>

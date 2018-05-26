@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.yang.pojo.Article;
 import com.yang.service.ArticleService;
 import com.yang.service.UserService;
 import com.yang.util.FormDataUtil;
+import com.yang.util.Page;
 
 @Controller
 public class ArticleController {
@@ -88,8 +91,7 @@ public class ArticleController {
 	 * @return
 	 */
 	@RequestMapping(value="/article",method=RequestMethod.GET)
-	public String lookArticle(Model model,HttpServletRequest req,HttpSession session)
-	{
+	public String lookArticle(Model model,HttpServletRequest req,HttpSession session){
 		String username=(String) session.getAttribute("username");
 		if(username==null)
 		{
@@ -97,12 +99,50 @@ public class ArticleController {
 		}
 		String articleid=req.getParameter("articleid");
 		Article article=articleService.getArticleByArticleid(articleid);//按文章ID查找文章
+		if(article==null)
+		{
+			return "404page";
+		}
 		model.addAttribute("article", article);
 		return "article";
 	}
 	
+
 	@RequestMapping(value="/articlelist",method=RequestMethod.GET)
-	public String articleList() {
-		return "articleList";
-	}
+	public String articleList(Page page, Model model,HttpSession session) {
+		String username=(String) session.getAttribute("username");
+		if(username==null)
+		{
+			return "redirect:login";
+		}
+		String by=page.getBy();
+		String value=page.getValue();
+		List<Article> articlelist=null;
+		int limit=1;
+		//开启分页，从start开始查找五条记录
+		PageHelper.offsetPage(page.getStart(), limit);
+		switch (by) {
+		case "type":
+			articlelist= articleService.getArticleByType(value);
+			break;
+		case "uid":
+			articlelist= articleService.getArticleByUserid(value);
+			break;
+		default:
+			return "404page";
+		}
+		if(articlelist.size()==0)
+		{
+			return "404page";
+		}
+		//总的记录条数
+		int total = (int) new PageInfo<>(articlelist).getTotal();		
+		//设置最后一页第一条记录
+		page.setCount(limit);
+		page.caculateLast(total);
+		model.addAttribute("total", total);
+		model.addAttribute("limit", limit);
+		model.addAttribute("articlelist", articlelist);
+		return "articlelist";
+	}	
 }
