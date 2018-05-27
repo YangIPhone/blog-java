@@ -29,6 +29,7 @@ public class ArticleController {
 	UserService userService;
 	@Autowired
 	ArticleService articleService;
+	
 	@RequestMapping(value="/warticle",method=RequestMethod.GET)
 	public String wArticle(HttpServletRequest req,HttpSession session){
 		String username=(String) session.getAttribute("username");
@@ -42,7 +43,7 @@ public class ArticleController {
 	/**
 	 * 发表文章的接口
 	 * @param article 文章内容对象
-	 * @return
+	 * @return 返回前端的提示信息
 	 */
 	@ResponseBody
 	@RequestMapping(value="/warticle",method=RequestMethod.POST)
@@ -73,7 +74,7 @@ public class ArticleController {
 		Map<String, Object> tips =new HashMap<>();
 		Map<String, Object> data =new HashMap<>();
 		Map<String, Object> filesrc =new HashMap<>();		
-		FormDataUtil formdata=new FormDataUtil(userid,req);
+		FormDataUtil formdata=new FormDataUtil(userid,"article",req);
 		filesrc=formdata.getFormData();
 		List<String> srclist=(List<String>) filesrc.get("src");
 		data.put("src", srclist.get(0));
@@ -84,7 +85,7 @@ public class ArticleController {
 	}
 	
 	/**
-	 * 根据get的文章ID查看文章
+	 * 根据get到的文章ID查看文章
 	 * @param model   Model
 	 * @param req     HttpServletRequest
 	 * @param session HttpSession
@@ -107,18 +108,26 @@ public class ArticleController {
 		return "article";
 	}
 	
-
+	/**
+	 * 文章列表分页显示
+	 * @param page 分页对象
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/articlelist",method=RequestMethod.GET)
 	public String articleList(Page page, Model model,HttpSession session) {
 		String username=(String) session.getAttribute("username");
-		if(username==null)
-		{
+		if(username==null){
 			return "redirect:login";
+		}
+		if(page.getStart()<0) {
+			return "404page";
 		}
 		String by=page.getBy();
 		String value=page.getValue();
 		List<Article> articlelist=null;
-		int limit=1;
+		int limit=10;//每页显示的条数
 		//开启分页，从start开始查找五条记录
 		PageHelper.offsetPage(page.getStart(), limit);
 		switch (by) {

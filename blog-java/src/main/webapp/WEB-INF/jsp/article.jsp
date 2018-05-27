@@ -100,9 +100,6 @@
     © §流い年§ Blog <a href="http://www.miibeian.gov.cn/">渝ICP备17008739号-1</a>
   </div>
 </div>
-<script type="text/javascript">
-var element = layui.element;
-element.render('nav');//重新对导航进行渲染。
-</script>
+<script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>

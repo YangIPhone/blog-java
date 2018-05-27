@@ -6,6 +6,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>§流い年§博客社区</title>
+	<style>
+	#content{size:20px; overflow : hidden;max-height:30px;
+				 text-overflow: ellipsis;
+				 display: -webkit-box;
+				 -webkit-line-clamp: 2;
+				 -webkit-box-orient: vertical;}
+	#content img{height:40px;}			
+	</style>
 	<link rel="stylesheet" href="layui/css/layui.css">
 	<link rel="icon" type="image/png" href="image/favicon.png">
 	<script type="text/javascript" src="layui/layui.js"></script>
@@ -72,10 +80,41 @@
 
 <div class="layui-body" style="background: #555" >
     <!-- 内容主体区域 -->
-  <div style="padding: 15px;" id="content" >
-	<c:forEach items="${articlelist}" var="article">
-	${article.title }
-	</c:forEach>
+  <div style="padding: 15px;">
+	<div class="layui-form news_list">
+	  	<table class="layui-table">
+		    <colgroup>
+				<col width="15%">
+				<col width="5%">
+				<col width="15%">
+				<col width="50%">
+				<col width="10%">
+				<col width="5%">
+		    </colgroup>
+		    <thead>
+				<tr>
+					<th>文章标题</th>
+					<th>发布人</th>
+					<th>发布时间</th>
+					<th>内容</th>
+					<th>文章类型</th>
+					<th>操作</th>
+				</tr> 
+		    </thead>
+		    <tbody class="news_content">
+		    	<c:forEach items="${articlelist}" var="article">
+		    	<tr>
+		    		<td>${article.title }</td>
+      				<td>${article.username }</td>
+      				<td>${article.time }</td>
+      				<td id="content">${article.content }</td>
+      				<td>${article.type }</td>
+      				<td><a href="article?articleid=${article.articleid}">查看</a></td>
+    			</tr>
+    			</c:forEach>
+			</tbody>
+		</table>
+	</div>
 	<div style="text-align:center" >
 		<a class="layui-btn layui-btn-primary layui-btn" href="?by=${page.by}&value=${page.value}&start=0">首  页</a>
 		<span id="pagecode"></span>
@@ -89,17 +128,6 @@
     © §流い年§ Blog <a href="http://www.miibeian.gov.cn/">渝ICP备17008739号-1</a>
   </div>
 </div>
-<script type="text/javascript">
-var element = layui.element;
-element.render('nav');//重新对导航进行渲染。
-var startp=${page.start-page.count};
-var startn=${page.start+page.count};
-var pagecode=document.getElementById("pagecode");
-for(var i=0,page=1;i<${total};i+=${limit},page++){ 	
-	var url="?by=${page.by}&value=${page.value}&start="+i;
-	pagecode.innerHTML+="<a class='layui-btn layui-btn-primary layui-btn' href='"+url+"'>第"+page+"页</a>";
-}
-
-</script>
+<script type="text/javascript" src="js/articlelist.js"></script>
 </body>
 </html>

@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>§流い年§博客社区</title>
 	<style>
-	#content img{width: 100px;position: relative;top:10px;}
+	#content img{height: 200px;position: relative;top:10px;}
 	#content div{color: #fff;size:20px; overflow : hidden;min-height:35px;
 				 text-overflow: ellipsis;
 				 display: -webkit-box;
@@ -114,9 +114,6 @@
     © §流い年§ Blog <a href="http://www.miibeian.gov.cn/">渝ICP备17008739号-1</a>
   </div>
 </div>
-<script type="text/javascript">
-var element = layui.element;
-element.render('nav');//重新对导航进行渲染。
-</script>
+<script type="text/javascript" src="js/index.js"></script>
 </body>
 </html>

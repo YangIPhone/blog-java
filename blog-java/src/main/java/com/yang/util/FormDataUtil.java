@@ -22,20 +22,51 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.yang.bean.Progress;
 
+/**
+ * 上传工具类
+ * @author Shinelon
+ *
+ */
 public class FormDataUtil {
 	private HttpServletRequest req;
 	private String name=null;
+	private String filedir=null;
 	private Map<String,Object> formdata=new HashMap<>();
 	private List<String> srclist=new ArrayList<>();
 	private LocalDateTime localtime=LocalDateTime.now();
-			
+	
+	/**
+	 * 
+	 * @param request HttpServletRequest
+	 */
 	public FormDataUtil(HttpServletRequest request) {
 		this.req=request;
 	}
+	/**
+	 * 
+	 * @param name 用户名
+	 * @param request HttpServletRequest
+	 */
 	public FormDataUtil(String name,HttpServletRequest request) {
 		this.name=name;
 		this.req=request;
 	}
+	/**
+	 * 
+	 * @param name 用户名
+	 * @param filedir 文件保存的文件目录：headimg、article、photo、resources
+	 * @param request HttpServletRequest
+	 */
+	public FormDataUtil(String name,String filedir,HttpServletRequest request) {
+		this.name=name;
+		this.filedir=filedir;
+		this.req=request;
+	}
+	
+	/**
+	 * 获取表单数据，包括字段和文件，表单类型必须是multipart/form-data
+	 * @return 表单的字段属性和文件的保存路径
+	 */
 	public Map<String,Object> getFormData()
 	{
 		//创建一个工厂
@@ -68,7 +99,7 @@ public class FormDataUtil {
 					//getName()方法获取上传文件名
 					String filename=list.get(i).getName();
 					//保存路径
-					String path=req.getServletContext().getRealPath("WEB-INF/uploadfile/")+data+"/"+name;
+					String path=req.getServletContext().getRealPath("WEB-INF/uploadfile/")+data+"/"+name+"/"+filedir;
 					//创建文件夹
 					new File(path).mkdirs();
 					path=path+"/"+filename;
@@ -80,7 +111,7 @@ public class FormDataUtil {
 					//删除临时文件
 					list.get(i).delete();
 					//将路径加入集合
-					srclist.add("uploadfile/"+data+"/"+name+"/"+filename);				
+					srclist.add("uploadfile/"+data+"/"+name+"/"+filedir+"/"+filename);				
 				}
 			}
 		} catch (FileUploadException|IOException e) {
