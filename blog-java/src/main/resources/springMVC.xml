@@ -37,6 +37,7 @@
     <mvc:resources location="/WEB-INF/static/image/" mapping="/image/**"/>
     <mvc:resources location="/WEB-INF/static/layui/" mapping="/layui/**"/>
     <mvc:resources location="/WEB-INF/uploadfile/" mapping="/uploadfile/**"/>
+    <mvc:resources location="/WEB-INF/static/fonts/" mapping="/fonts/**"/>
     <context:annotation-config/>
 
     <context:component-scan base-package="com.yang.controller">

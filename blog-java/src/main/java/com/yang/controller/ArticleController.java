@@ -32,8 +32,8 @@ public class ArticleController {
 	
 	@RequestMapping(value="/warticle",method=RequestMethod.GET)
 	public String wArticle(HttpServletRequest req,HttpSession session){
-		String username=(String) session.getAttribute("username");
-		if(username==null)
+		String userid=(String) session.getAttribute("userid");
+		if(userid==null)
 		{
 			return "redirect:login";
 		}
@@ -93,8 +93,8 @@ public class ArticleController {
 	 */
 	@RequestMapping(value="/article",method=RequestMethod.GET)
 	public String lookArticle(Model model,HttpServletRequest req,HttpSession session){
-		String username=(String) session.getAttribute("username");
-		if(username==null)
+		String userid=(String) session.getAttribute("userid");
+		if(userid==null)
 		{
 			return "redirect:login";
 		}
@@ -117,8 +117,8 @@ public class ArticleController {
 	 */
 	@RequestMapping(value="/articlelist",method=RequestMethod.GET)
 	public String articleList(Page page, Model model,HttpSession session) {
-		String username=(String) session.getAttribute("username");
-		if(username==null){
+		String userid=(String) session.getAttribute("userid");
+		if(userid==null){
 			return "redirect:login";
 		}
 		if(page.getStart()<0) {

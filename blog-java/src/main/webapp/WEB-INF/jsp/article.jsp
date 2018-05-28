@@ -49,7 +49,7 @@
       <li class="layui-nav-item">
     <a href="">消息中心<span class="layui-badge">9</span></a>
   </li>
-      <li class="layui-nav-item"><a href="">退出</a></li>
+      <li class="layui-nav-item"><a href="loginout">退出</a></li>
     </ul>
   </div>
   
@@ -60,7 +60,7 @@
         <li class="layui-nav-item">
           <a class="" href="javascript:;"><i class="layui-icon">&#xe66f;</i>个人空间</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;">专属相册</a></dd>
+            <dd><a href="album?userid=${sessionScope.userid }">专属相册</a></dd>
             <dd><a href="javascript:;">留言列表</a></dd>
             <dd><a href="articlelist?by=uid&value=${sessionScope.userid }">我的博客</a></dd>
             <dd><a href="">我的资源</a></dd>

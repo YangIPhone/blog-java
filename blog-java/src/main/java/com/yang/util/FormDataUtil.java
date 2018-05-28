@@ -33,6 +33,7 @@ public class FormDataUtil {
 	private String filedir=null;
 	private Map<String,Object> formdata=new HashMap<>();
 	private List<String> srclist=new ArrayList<>();
+	private List<String> filenamelist=new ArrayList<>();
 	private LocalDateTime localtime=LocalDateTime.now();
 	
 	/**
@@ -110,6 +111,8 @@ public class FormDataUtil {
 					IOUtil.closeStream(in, out);
 					//删除临时文件
 					list.get(i).delete();
+					//将文件名加入集合
+					filenamelist.add(filename);
 					//将路径加入集合
 					srclist.add("uploadfile/"+data+"/"+name+"/"+filedir+"/"+filename);				
 				}
@@ -152,10 +155,12 @@ public class FormDataUtil {
 				progress.setLtime(lt.toString());//剩余时间
 				progress.setProgress(per.toString());//当前进度
 				progress.setSpeed(speed.toString());//当前速度
+//				System.out.println("当前读取文件是第"+items+"个，已上传大小为:"+br+"KB,总大小为："+cl+"KB,已上传"+per+"%,已用时间："+useTime+"上传速度为"+speed+"KB/s,大概剩余还需"+lt+"秒<br>");
 				//将进度信息加入session
 				req.getSession().setAttribute("Progress", progress);
 			}			
 		});
+		formdata.put("filenamelist", filenamelist);
 		formdata.put("src", srclist);
 		return formdata;
 	}

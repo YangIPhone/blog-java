@@ -55,7 +55,7 @@
       <li class="layui-nav-item">
     <a href="">消息中心<span class="layui-badge">9</span></a>
   </li>
-      <li class="layui-nav-item"><a href="">退出</a></li>
+      <li class="layui-nav-item"><a href="loginout">退出</a></li>
     </ul>
   </div>
   
@@ -66,7 +66,7 @@
         <li class="layui-nav-item">
           <a class="" href="javascript:;"><i class="layui-icon">&#xe66f;</i>个人空间</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;">专属相册</a></dd>
+            <dd><a href="album?userid=${sessionScope.userid }">专属相册</a></dd>
             <dd><a href="javascript:;">留言列表</a></dd>
             <dd><a href="articlelist?by=uid&value=${sessionScope.userid }">我的博客</a></dd>
             <dd><a href="">我的资源</a></dd>
@@ -128,6 +128,16 @@
     © §流い年§ Blog <a href="http://www.miibeian.gov.cn/">渝ICP备17008739号-1</a>
   </div>
 </div>
-<script type="text/javascript" src="js/articlelist.js"></script>
+<script type="text/javascript">
+var element = layui.element;
+element.render('nav');//重新对导航进行渲染。
+var startp=${page.start-page.count};
+var startn=${page.start+page.count};
+var pagecode=document.getElementById("pagecode");
+for(var i=0,page=1;i<${total};i+=${limit},page++){ 
+	var url="?by=${page.by}&value=${page.value}&start="+i;
+	pagecode.innerHTML+="<a class='layui-btn layui-btn-primary layui-btn' href='"+url+"'>第"+page+"页</a>";
+}
+</script>
 </body>
 </html>

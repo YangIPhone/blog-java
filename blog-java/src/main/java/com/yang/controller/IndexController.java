@@ -26,26 +26,47 @@ public class IndexController {
 	UserService userService;
 	@Autowired
 	ArticleService articleService;
+	
+	/**
+	 * 主页
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/index",method=RequestMethod.GET)
 	public String index(Model model,HttpSession session)
 	{	
-		String username=(String) session.getAttribute("username");
-		if(username==null)
+		String userid=(String) session.getAttribute("userid");		
+		if(userid==null)
 		{
 			return "redirect:login";
 		}
+		String username=(String) session.getAttribute("username");
 		List<Article> articlelist=articleService.getArticleList();
 		model.addAttribute("articlelist", articlelist);
 		model.addAttribute("username",username);
 		return "index";
 	}
 	
+	/**
+	 * 登录页面
+	 * @param model
+	 * @param req
+	 * @return
+	 */
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String login(Model model,HttpServletRequest req)
 	{
 		return "login";
 	}
 	
+	/**
+	 * 验证用户登录信息
+	 * @param users
+	 * @param req
+	 * @param session
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public String verifyUser(User users,HttpServletRequest req,HttpSession session)
@@ -67,4 +88,18 @@ public class IndexController {
 		return JSON.toJSONString(tips);//返回json字符串 
 	}
 	
+	/**
+	 * 退出登录 
+	 * @param model
+	 * @param req
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value="/loginout",method=RequestMethod.GET)
+	public String loginout(Model model,HttpServletRequest req,HttpSession session)
+	{	
+		session.removeAttribute("userid");
+		session.removeAttribute("username");
+		return "redirect:login";
+	}
 }

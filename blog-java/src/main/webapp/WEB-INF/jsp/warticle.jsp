@@ -47,7 +47,7 @@
       <li class="layui-nav-item">
     <a href="">消息中心<span class="layui-badge">9</span></a>
   </li>
-      <li class="layui-nav-item"><a href="">退出</a></li>
+      <li class="layui-nav-item"><a href="loginout">退出</a></li>
     </ul>
   </div>
   
@@ -58,7 +58,7 @@
         <li class="layui-nav-item">
           <a class="" href="javascript:;"><i class="layui-icon">&#xe66f;</i>个人空间</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;">专属相册</a></dd>
+            <dd><a href="album?userid=${sessionScope.userid }">专属相册</a></dd>
             <dd><a href="javascript:;">留言列表</a></dd>
             <dd><a href="articlelist?by=uid&value=${sessionScope.userid }">我的博客</a></dd>
             <dd><a href="">我的资源</a></dd>
@@ -83,13 +83,13 @@
   <div class="layui-form-item" >
    <label class="layui-form-label">文章类型</label>
    <div class="layui-input-block">
-  <select name="type" id="type" lay-verify="">
-  <option value="">请选择文章类型</option>
-  <option value="技术博客">技术博客</option>
-  <option value="心情随笔">心情随笔</option>
-  <option value="生活琐事">生活琐事</option>
-</select> 
-    </div>
+   	<select name="type" id="type" lay-verify="">
+  		<option value="">请选择文章类型</option>
+  		<option value="技术博客">技术博客</option>
+  		<option value="心情随笔">心情随笔</option>
+  		<option value="生活琐事">生活琐事</option>
+   	</select> 
+   </div>
   </div>
   <input type="text" name="userid" id="userid" value="${sessionScope.userid}" hidden/>
   <input type="text" name="username" id="username" value="${sessionScope.username}" hidden/>

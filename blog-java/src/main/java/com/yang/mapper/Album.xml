@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.yang.mapper.AlbumMapper">
+	    <select id="getAlbumList" resultType="Album">
+	        select * from  album where userid=#{userid}    
+	    </select>
+	    <select id="getAlbumListByaname" resultType="Album">
+	        select * from  album where userid=#{userid} and aname=#{aname}    
+	    </select>	
+	    <insert id="createAlbum" parameterType="Album" >
+	        insert into album (userid,username,aname,adescribe)
+	          values (#{userid},#{username},#{aname},#{adescribe})    
+	    </insert>  
+	    <update id="upDateAlbum" >
+	        update album set aname=#{newaname},adescribe=#{adescribe} where aname=#{oldaname} and userid=#{userid}    
+	    </update>  
+	</mapper>
+
