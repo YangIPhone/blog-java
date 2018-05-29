@@ -145,7 +145,7 @@ public String uploadPhotospost( HttpServletRequest req,Model model,HttpSession s
 {	
 	Photo photo=new Photo();
 	String name=(String) session.getAttribute("userid");
-	String filedir="photo/"+"新建一个";
+	String filedir="photo";
 	FormDataUtil formdata=new FormDataUtil(name, filedir, req);
 	//datamap：包含表单数据、文件路径(List)及文件名(List)
 	Map<String,Object> datamap= formdata.getFormData();

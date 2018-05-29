@@ -93,7 +93,7 @@
     					<div class="layui-row">
     						<div class="layui-col-xs5">
      							<div class="grid-demo grid-demo-bg1">
-     								<a href="photos?aname=${album.aname}" ><img src="${album.albumcover}" style="width:100px;"></a>
+     								<a href="photos?aname=${album.aname}" ><img src="${album.albumcover}" style="height:130px;"></a>
      							</div>
     						</div>
     						<div class="layui-col-xs5" style="margin-left: 8%">
