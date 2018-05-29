@@ -6,6 +6,9 @@
 	<mapper namespace="com.yang.mapper.PhotosMapper">
 	    <select id="getPhotosByUidAndAname" resultType="Photo">
 	        select * from  photos where userid=#{userid} and aname=#{aname}    
+	    </select>
+	    <select id="getAlbumCover" resultType="Photo">
+	        select * from  photos where userid=#{userid} and aname=#{aname} order by photoid DESC limit 0,1     
 	    </select>	
 	    <insert id="addPhoto" parameterType="Photo">
 	    insert into photos (userid,username,aname,photosrc,photoname) 

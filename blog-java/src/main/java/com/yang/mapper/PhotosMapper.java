@@ -8,6 +8,7 @@ import com.yang.pojo.Photo;
 
 public interface PhotosMapper {
 	 List<Photo> getPhotosByUidAndAname(@Param("userid")String userid,@Param("aname")String aname);
+	 Photo getAlbumCover(@Param("userid")String userid,@Param("aname")String aname);
 	 int addPhoto(Photo photo);
 	 int delPhoto(@Param("photoid")int photoid);
 }

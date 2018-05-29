@@ -83,7 +83,7 @@
       			<div class="layui-card">
   					<div class="layui-card-header">《${album.aname}》
   					<a href="uploadphotos?album=${album.aname}" class="layui-btn" style="margin-bottom: 2%;float: right;">
-  						<i class="layui-icon">&#xe67c;</i>上传
+  						上传
   					</a>
   					<a href="newalbum?aname=${album.aname}" class="layui-btn layui-btn-danger" style="margin-bottom: 2%;float: right;">
   						<i class="layui-icon">&#xe642;</i>修改
@@ -93,7 +93,7 @@
     					<div class="layui-row">
     						<div class="layui-col-xs5">
      							<div class="grid-demo grid-demo-bg1">
-     								<a href="photos?aname=${album.aname}" ><img src="http://t.cn/RCzsdCq" style="width:90%"></a>
+     								<a href="photos?aname=${album.aname}" ><img src="${album.albumcover}" style="width:100px;"></a>
      							</div>
     						</div>
     						<div class="layui-col-xs5" style="margin-left: 8%">

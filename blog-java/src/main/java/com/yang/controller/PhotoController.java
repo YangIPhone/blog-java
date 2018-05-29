@@ -42,6 +42,16 @@ public class PhotoController {
 		return "redirect:login";
 	}
 	List<Album> albumList=albumService.getAlbumList(userid);
+	for(int i=0;i<albumList.size();i++)
+	{
+		String aname=albumList.get(i).getAname();
+		//获取相册封面
+		Photo photo=photoService.getAlbumCover(userid, aname);
+		if(photo!=null) 
+		{
+			albumList.get(i).setAlbumcover(photo.getPhotosrc());
+		}
+	}
 	model.addAttribute("albumList", albumList);
 	return "album";
 	}
@@ -83,6 +93,8 @@ public class PhotoController {
 	String userid=album.getUserid();
 	int status=0;
 	if("".equals(oldname)) {
+		//设置默认封面
+		album.setAlbumcover("image/logoa.png");
 		//新建相册
 		status=albumService.createAlbum(album);
 	}else {

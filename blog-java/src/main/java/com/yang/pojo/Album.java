@@ -5,6 +5,7 @@ public class Album {
 	private String username;
 	private String aname;
 	private String adescribe;
+	private String albumcover;
 	public String getUserid() {
 		return userid;
 	}
@@ -28,6 +29,12 @@ public class Album {
 	}
 	public void setAdescribe(String adescribe) {
 		this.adescribe = adescribe;
+	}
+	public String getAlbumcover() {
+		return albumcover;
+	}
+	public void setAlbumcover(String albumcover) {
+		this.albumcover = albumcover;
 	}
 	
 }

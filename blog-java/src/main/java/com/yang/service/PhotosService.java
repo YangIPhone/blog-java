@@ -8,6 +8,7 @@ import com.yang.pojo.Photo;
 
 public interface PhotosService {
 	List<Photo> getPhotosByUidAndAname(String userid,String aname);
+	Photo getAlbumCover(String userid,String aname);
 	int addPhoto(Photo photo);
 	int delPhoto(int photoid);
 }

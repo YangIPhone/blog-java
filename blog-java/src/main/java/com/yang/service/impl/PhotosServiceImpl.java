@@ -19,6 +19,11 @@ public class PhotosServiceImpl implements PhotosService {
 		return photosMapper.getPhotosByUidAndAname(userid, aname);
 	}
 	@Override
+	public Photo getAlbumCover(String userid, String aname) {
+		// TODO Auto-generated method stub
+		return photosMapper.getAlbumCover(userid, aname);
+	}
+	@Override
 	public int addPhoto(Photo photo) {
 		// TODO Auto-generated method stub
 		return photosMapper.addPhoto(photo);
@@ -28,5 +33,4 @@ public class PhotosServiceImpl implements PhotosService {
 		// TODO Auto-generated method stub
 		return photosMapper.delPhoto(photoid);
 	}
-
 }
