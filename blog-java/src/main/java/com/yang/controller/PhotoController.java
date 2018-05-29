@@ -16,14 +16,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.yang.pojo.Album;
+import com.yang.pojo.Photo;
 import com.yang.service.AlbumService;
+import com.yang.service.PhotosService;
 import com.yang.util.FormDataUtil;
 
 @Controller
 public class PhotoController {
 	@Autowired
 	AlbumService albumService;
-
+	@Autowired
+	PhotosService photoService;
 /**
  * 查看相册页面
  * @param req
@@ -105,35 +108,55 @@ public class PhotoController {
  * @return
  */
 @RequestMapping(value="/uploadphotos",method=RequestMethod.GET)
-	public String uploadPhotos( Model model,HttpSession session)
+	public String uploadPhotos( Model model,HttpServletRequest req,HttpSession session)
 	{
 	String userid=(String) session.getAttribute("userid");
 	if(userid==null)
 	{
 	return "redirect:login";
 	}
-	List<Album> albumList=albumService.getAlbumList(userid);
-	model.addAttribute("albumList", albumList);
+	String album=req.getParameter("album");
+	model.addAttribute("album", album);
 	return "uploadphotos";
 	}
 	
+/**
+ * 上传照片接口
+ * @param req
+ * @param model
+ * @param session
+ * @return
+ */
 @ResponseBody
 @RequestMapping(value="/uploadphotos",method=RequestMethod.POST)
 public String uploadPhotospost( HttpServletRequest req,Model model,HttpSession session)
-{
+{	
+	Photo photo=new Photo();
 	String name=(String) session.getAttribute("userid");
 	String filedir="photo/"+"新建一个";
 	FormDataUtil formdata=new FormDataUtil(name, filedir, req);
 	//datamap：包含表单数据、文件路径(List)及文件名(List)
 	Map<String,Object> datamap= formdata.getFormData();
+	//返回的json提示
 	Map<String, Object> tips =new HashMap<>();
+	//用户ID
 	String userid=(String) session.getAttribute("userid");
+	//用户名
 	String username=(String) session.getAttribute("username");
+	//相册名
+	String album=(String) datamap.get("album");
+	//文件资源路径
 	List<String> src=(List<String>) datamap.get("src");
-	System.out.println(src.get(0));
 	//文件名（包含后缀）
 	List<String> filename=(List<String>) datamap.get("filenamelist");
-	System.out.println(filename.get(0));
+	String photosrc=src.get(0);
+	String photoname=filename.get(0);
+	photo.setUserid(userid);
+	photo.setUsername(username);
+	photo.setAname(album);
+	photo.setPhotosrc(photosrc);
+	photo.setPhotoname(photoname);
+	photoService.addPhoto(photo);
 	tips.put("code", 0);
 	tips.put("msg", "success");
 	return JSONObject.toJSONString(tips);
@@ -147,13 +170,16 @@ public String uploadPhotospost( HttpServletRequest req,Model model,HttpSession s
  * @return
  */
 @RequestMapping(value="/photos",method=RequestMethod.GET)
-	public String photos( HttpServletRequest req,HttpSession session)
+	public String photos(Model model, HttpServletRequest req,HttpSession session)
 	{
 	String userid=(String) session.getAttribute("userid");
 	if(userid==null)
 	{
 	return "redirect:login";
 	}
+	String aname=req.getParameter("aname");
+	model.addAttribute("userid", userid);
+	model.addAttribute("aname", aname);
 	return "photos";
 	}
 
@@ -161,13 +187,18 @@ public String uploadPhotospost( HttpServletRequest req,Model model,HttpSession s
  * 获取对应相册的照片信息
  * @param req
  * @param session
- * @return "name": "照片路径", "caption": "照片名字"
+ * @return json格式数据:[{"name": "照片路径", "caption": "照片名字"}]
  */
 @ResponseBody
 @RequestMapping(value="/getphotos",method=RequestMethod.POST)
 	public String getphotos( HttpServletRequest req,HttpSession session)
 	{
-	return "photos";
+	List<Object> data =null;
+	Map<String,String> photomsg=new HashMap<String,String>();
+	String userid=req.getParameter("userid");
+	String aname=req.getParameter("aname");
+	List<Photo> photos=photoService.getPhotosByUidAndAname(userid,aname);
+	return JSONObject.toJSONString(photos);
 	}
 
 }

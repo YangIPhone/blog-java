@@ -1,12 +1,14 @@
+    
 var polaroidGallery = (function () {
-    var dataSize = {};
+	var userid=$('#userid').val();
+	var aname=$('#aname').val();
+	var dataSize = {};
     var dataLength = 0;
     var currentItem = null;
     var navbarHeight = 60;
     var resizeTimeout = null;
     var xmlhttp = new XMLHttpRequest();
-    var url = "data/data.json";
-
+    var url = "getphotos";
     function polaroidGallery() {
         observe();
         xmlhttp.onreadystatechange = function () {
@@ -16,8 +18,9 @@ var polaroidGallery = (function () {
                 init();
             }
         };
-        xmlhttp.open("GET", url, true);
-        xmlhttp.send();
+        xmlhttp.open("POST", url, true);
+        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        xmlhttp.send("userid="+userid+"&aname="+aname);
     }
 
     function setGallery(arr) {
@@ -25,8 +28,8 @@ var polaroidGallery = (function () {
         var i;
         for (i = 0; i < arr.length; i++) {
             out += '<figure id="' + i + '">' +
-                '<img src="img/' + arr[i].name + '" alt="' + arr[i].name + '"/>' +
-                '<figcaption>' + arr[i].caption + '</figcaption>' +
+                '<img src="'+ arr[i].photosrc+'" alt="' + arr[i].name + '"/>' +
+                '<figcaption>' + arr[i].photoname + '</figcaption>' +
                 '</figure>';
         }
         document.getElementById("gallery").innerHTML = out;

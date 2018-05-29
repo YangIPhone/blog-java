@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.yang.mapper.PhotosMapper">
+	    <select id="getPhotosByUidAndAname" resultType="Photo">
+	        select * from  photos where userid=#{userid} and aname=#{aname}    
+	    </select>	
+	    <insert id="addPhoto" parameterType="Photo">
+	    insert into photos (userid,username,aname,photosrc,photoname) 
+	    values (#{userid},#{username},#{aname},#{photosrc},#{photoname})
+	    </insert>
+	    <delete id="delPhoto" parameterType="int">
+	    	delete * from photos where photoid= #{photoid} 
+	    </delete>    
+	</mapper>
+

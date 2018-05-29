@@ -12,8 +12,9 @@
 	<link rel="icon" type="image/png" href="image/favicon.png">
 	<script type="text/javascript" src="layui/layui.js"></script>
 	<script type="text/javascript" src="layui/layui.all.js"></script>
+	<script type="text/javascript" src="js/jquery-3.2.1.js"></script>
 </head>
-<body class="layui-layout-body">
+<body class="layui-layout-body fullscreen">
 <div class="layui-layout layui-layout-admin">
   <div class="layui-header">
     <a href="index"><div class="layui-logo">§流い年§博客社区</div></a>
@@ -74,23 +75,25 @@
 <div class="layui-body" style="background: #555" >
     <!-- 内容主体区域 -->
   <div style="padding: 15px;" >
-   <div id="gallery" class="fullscreen"></div>
-	
-  </div>
-</div>
-  
-  <div class="layui-footer" style="text-align:center;color: #000">
-    <!-- 底部固定区域 -->
-    <div id="nav" style="background-color: #555">
+  <input type="text"  id="userid" value="${userid}" hidden/>
+  <input type="text"  id="aname" value="${aname}" hidden/>
+   	<div id="gallery" class="fullscreen"></div>
+	<div id="nav">
 	    <button id="preview">&lt; 前一张</button>
 	    <button id="next">下一张 &gt;</button>
 	</div>
   </div>
 </div>
+
+  <div class="layui-footer" style="text-align:center;color:#000">
+    <!-- 底部固定区域 -->
+    © §流い年§ Blog <a style="color:#000" href="http://www.miibeian.gov.cn/">渝ICP备17008739号-1</a>
+  </div>
+</div>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src="js/polaroid-gallery.js"></script>
 	<script>
-	    window.onload = function () {
+	    window.onload = function () {	    	
 	        new polaroidGallery();
 	    }
 	</script>

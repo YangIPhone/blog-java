@@ -76,22 +76,24 @@
   	<a href="newalbum" class="layui-btn layui-btn-radius" style="margin-bottom: 2%;">
   		<i class="layui-icon">&#xe608;</i> 新建相册
   	</a>
-  	<a href="uploadphotos" class="layui-btn layui-btn-radius" style="margin-bottom: 2%;">
-  		<i class="layui-icon">&#xe67c;</i> 上传照片
-  	</a>
    	<div class="layui-row">   	
     	<c:forEach items="${albumList}" var="album">
     	<div class="layui-col-xs5" style="margin-right: 8%;margin-bottom: 2%;">
       		<div class="grid-demo">
       			<div class="layui-card">
-  					<div class="layui-card-header">相册名:${album.aname}
-  					<a href="newalbum?aname=${album.aname}" class="layui-btn layui-btn-danger" style="margin-bottom: 2%;float: right;">修改相册</a>
+  					<div class="layui-card-header">《${album.aname}》
+  					<a href="uploadphotos?album=${album.aname}" class="layui-btn" style="margin-bottom: 2%;float: right;">
+  						<i class="layui-icon">&#xe67c;</i>上传
+  					</a>
+  					<a href="newalbum?aname=${album.aname}" class="layui-btn layui-btn-danger" style="margin-bottom: 2%;float: right;">
+  						<i class="layui-icon">&#xe642;</i>修改
+  					</a>
   					</div>
   					<div class="layui-card-body">
     					<div class="layui-row">
     						<div class="layui-col-xs5">
      							<div class="grid-demo grid-demo-bg1">
-     								<a href="" ><img src="http://t.cn/RCzsdCq" style="width:90%"></a>
+     								<a href="photos?aname=${album.aname}" ><img src="http://t.cn/RCzsdCq" style="width:90%"></a>
      							</div>
     						</div>
     						<div class="layui-col-xs5" style="margin-left: 8%">

@@ -91,7 +91,7 @@ public class FormDataUtil {
 				{
 					//True 为普通表单字段，则调用getFieldName、getString(String	encoding)方法得到字段名和字段值,可以用encoding进行编码设置,防止中文乱码
 					String name=list.get(i).getFieldName();
-					String value=list.get(i).getString();
+					String value=list.get(i).getString("UTF-8");
 					formdata.put(name, value);
 				}else {
 					//False 为上传文件，则调用getInputStream方法得到数据输入流，从而读取上传数据。

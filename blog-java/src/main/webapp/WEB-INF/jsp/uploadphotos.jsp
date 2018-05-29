@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>§流い年§博客社区</title>
 	<style>
-	#preview img{height:100px;margin-right: 2px;}
+	#preview img{height:100px;margin-right: 5px;}
 	</style>
 	<link rel="stylesheet" href="layui/css/layui.css">
 	<link rel="icon" type="image/png" href="image/favicon.png">
@@ -77,16 +77,11 @@
     <!-- 内容主体区域 -->
   <div style="padding: 15px;" >
     <form class="layui-form layui-form-pane">
-    <div class="layui-form-item" >
-   	<label class="layui-form-label">相册:</label>
-   	<div class="layui-input-block">
-   	<select name="album" id="album" lay-verify="">
-  		<option value="">请选择相册</option>
-  		<c:forEach items="${albumList}" var="album">
-  		<option value="${album.aname}">${album.aname}</option>
-  		</c:forEach>
-   	</select> 
-    </div>
+    <div class="layui-form-item" pane >
+   	<label class="layui-form-label">上传的相册:</label>
+		<div class="layui-input-block">
+      		<input type="text" name="album" id="album" value="${album}" disabled="disabled"  placeholder="请输入文章标题" autocomplete="off" class="layui-input">
+    	</div>
   	</div>
   	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
   		<legend>上传多张图片</legend>
@@ -113,27 +108,19 @@ var upload = layui.upload;
 var form=layui.form;
 form.render('select');
 var url="uploadphotos";
-var album=document.getElementById('album');
+var album=$('#album').val();
 upload.render({	
     elem: '#imgs'
     ,url: url
-    //,data:{album:album}
+    ,data:{album:album}
     ,auto:false
     ,bindAction:'#upload'
     ,multiple: true
-    ,choose: function(obj){
-    	var albumtype=album.value;
-    	if(albumtype=="")
-    		{
-    		layer.open({
-   			 title: '提示',
-   			 content: "没有选择相册",
-   			});
-    		}
+    ,choose: function(obj){  	
       //预读本地文件示例，不支持ie8
       files = obj.pushFile();
       obj.preview(function(index, file, result){
-        $('#preview').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img"><button class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</button>');  
+        $('#preview').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">');  
       });
     }
     ,done: function(res){

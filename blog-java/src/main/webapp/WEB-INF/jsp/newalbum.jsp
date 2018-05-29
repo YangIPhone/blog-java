@@ -76,7 +76,7 @@
   <div class="layui-form-item" pane> 
     <label class="layui-form-label">起个名字</i></label>
     <div class="layui-input-block">
-      <input type="text" name="aname" id="aname" value="${album.aname}" maxlength="10"  required  placeholder="给相册起个名(最多10个字)" autocomplete="off" class="layui-input">
+      <input type="text" name="aname" id="aname" value="${album.aname}" maxlength="6"  required  placeholder="给相册起个名(最多6个字)" autocomplete="off" class="layui-input">
     </div>
   </div>
   <div class="layui-form-item" pane> 
