@@ -15,14 +15,24 @@ public class UserserviceImpl implements UserService {
 	@Autowired
 	UserMapper userMapper;
 	@Override
-	public List<User> users() {
+	public User getUserByUserid(String userid) {
 		// TODO Auto-generated method stub
-		return userMapper.users();
+		return userMapper.getUserByUserid(userid);
 	}
 	@Override
 	public User getUserByUseridAndPwd(String userid,String password) {
 		// TODO Auto-generated method stub
 		return userMapper.getUserByUseridAndPwd(userid,password);
+	}
+	@Override
+	public int updateUser(User user) {
+		// TODO Auto-generated method stub
+		return userMapper.updateUser(user);
+	}
+	@Override
+	public int updateUserPwd(String userid, String password) {
+		// TODO Auto-generated method stub
+		return userMapper.updateUserPwd(userid, password);
 	}
 
 }

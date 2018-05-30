@@ -39,11 +39,11 @@
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
-          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          <img src="${sessionScope.headimg}" class="layui-nav-img">
          ${sessionScope.username}
         </a>
         <dl class="layui-nav-child">
-          <dd><a href="">基本资料</a></dd>
+          <dd><a href="basicinfor">基本资料</a></dd>
           <dd><a href="">安全设置</a></dd>
         </dl>
       </li>
@@ -83,11 +83,11 @@
       		<input type="text" name="album" id="album" value="${album}" disabled="disabled"  placeholder="请输入文章标题" autocomplete="off" class="layui-input">
     	</div>
   	</div>
-  	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
-  		<legend>上传多张图片</legend>
+  	<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;color: #fff">
+  		<legend>上传多张照片</legend>
 	</fieldset>
 	<div class="layui-upload">
-  		<button type="button" class="layui-btn" id="imgs">多图片上传</button> 
+  		<button type="button" class="layui-btn" id="imgs">多照片上传</button> 
   		<blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
     	预览图：
     	<div class="layui-upload-list" id="preview"></div>
@@ -103,39 +103,6 @@
   </div>
 </div>
 <script type="text/javascript" src="js/index.js"></script>
-<script type="text/javascript">
-var upload = layui.upload;
-var form=layui.form;
-form.render('select');
-var url="uploadphotos";
-var album=$('#album').val();
-upload.render({	
-    elem: '#imgs'
-    ,url: url
-    ,data:{album:album}
-    ,auto:false
-    ,bindAction:'#upload'
-    ,multiple: true
-    ,choose: function(obj){  	
-      //预读本地文件示例，不支持ie8
-      files = obj.pushFile();
-      obj.preview(function(index, file, result){
-        $('#preview').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">');  
-      });
-    }
-    ,done: function(res){
-    	if(res.code==0)
-		{
-		layer.open({
-			 title: '提示',
-			 content: res.msg+"，3秒后自动跳转到相册",
-			});
-		setTimeout(function() {
-			location.href="album";
-		}, 3000);
-		}
-    }
-  });
-</script>
+<script type="text/javascript" src="js/uploadphotos.js"></script>
 </body>
 </html>

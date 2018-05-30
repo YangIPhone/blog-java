@@ -43,11 +43,11 @@
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
-          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          <img src="${sessionScope.headimg}" class="layui-nav-img">
          ${sessionScope.username}
         </a>
         <dl class="layui-nav-child">
-          <dd><a href="">基本资料</a></dd>
+          <dd><a href="basicinfor">基本资料</a></dd>
           <dd><a href="">安全设置</a></dd>
         </dl>
       </li>
