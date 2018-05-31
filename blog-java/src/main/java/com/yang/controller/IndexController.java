@@ -119,6 +119,12 @@ public class IndexController {
 		return "basicinfor";
 	}
 	
+	/**
+	 * 修改用户昵称及头像
+	 * @param req
+	 * @param session
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="/basicinfor",method=RequestMethod.POST)
 	public String updateUserInfor(HttpServletRequest req,HttpSession session) {

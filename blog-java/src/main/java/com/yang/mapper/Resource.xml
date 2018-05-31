@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.yang.mapper.ResourceMapper">
+	    <select id="resListByAll" resultType="Resource">
+	        select * from  resource order by time DESC    
+	    </select>
+	    <select id="resListByUserid" resultType="Resource">
+	        select * from  resource where userid=#{userid}    
+	    </select>
+	    <select id="resListByDescribe" resultType="Resource">
+	        select * from  resource where describ like #{describe}  order by time DESC      
+	    </select>	
+	    <insert id="addResource" parameterType="Resource">
+	    insert into resource (userid,username,describ,filesize,filesrc,filename,time) 
+	    values (#{userid},#{username},#{describ},#{filesize},#{filesrc},#{filename},#{time})
+	    </insert>  
+	</mapper>
+

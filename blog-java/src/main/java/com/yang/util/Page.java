@@ -5,7 +5,7 @@ public class Page {
 	int start=0;
 	int count = 1;
 	int last = 0;
-	String by;
+	String by="";
 	String value;
 	public int getStart() {
 		return start;

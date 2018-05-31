@@ -18,7 +18,7 @@
     
     <ul class="layui-nav layui-layout-left">
     <li class="layui-nav-item"><a href="index">博客首页</a></li>
-    <li class="layui-nav-item"><a href="">资源专区</a></li>
+    <li class="layui-nav-item"><a href="reslist">资源专区</a></li>
     <li class="layui-nav-item"><a href="">问答社区</a></li> 
     <li class="layui-nav-item">
         <a href="javascript:;">文章论坛</a>
@@ -59,10 +59,10 @@
             <dd><a href="album?userid=${sessionScope.userid }">专属相册</a></dd>
             <dd><a href="javascript:;">留言列表</a></dd>
             <dd><a href="articlelist?by=uid&value=${sessionScope.userid }">我的博客</a></dd>
-            <dd><a href="">我的资源</a></dd>
+            <dd><a href="reslist?by=uid&value=${sessionScope.userid }">我的资源</a></dd>
           </dl>
         </li><li class="layui-nav-item"><a href="warticle?userid=${sessionScope.userid }"><i class="layui-icon">&#xe642;</i>写博客</a></li>
-        <li class="layui-nav-item"><a href=""><i class="layui-icon">&#xe681;</i>上传资源</a></li>
+        <li class="layui-nav-item"><a href="uploadres"><i class="layui-icon">&#xe681;</i>上传资源</a></li>
         <li class="layui-nav-item"><a href=""><i class="layui-icon">&#xe63a;</i>我要提问</a></li>
       </ul>
     </div>

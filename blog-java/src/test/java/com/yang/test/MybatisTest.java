@@ -11,35 +11,30 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.yang.mapper.ArticleMapper;
+import com.yang.mapper.ResourceMapper;
 import com.yang.mapper.UserMapper;
 import com.yang.pojo.Article;
+import com.yang.pojo.Resource;
 import com.yang.pojo.User;
+import com.yang.service.ResourceService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")
-public class MybatisTest {
-
+public class MybatisTest {	
 	@Autowired
-	private UserMapper userMapper;
-	@Autowired
-	private ArticleMapper articleMapper;
+	ResourceService resourceService;
 	
 	@Test
-	public void testList() {
-		PageHelper.offsetPage(0, 5);
-		User cs=userMapper.getUserByUseridAndPwd("123456", "123456");
-		System.out.println(cs.getPassword());
+	public void testFindRes() {
+		String d="js";
+		List<Resource> res=resourceService.resListByDescribe(d);
+		System.out.println(res);
 	}
 	
 	@Test
-	public void testaddarticle() {
-		Article article=new Article();
-		article.setTitle("title");
-		article.setContent("content");
-		article.setUserid("123456");
-		article.setUsername("杨昌权");
-		int i= articleMapper.addArticle(article);
-		System.out.println(i);
+	public void testresListByAll() {
+		List<Resource> res=resourceService.resListByAll();
+		System.out.println(res);
 	}
 
 }

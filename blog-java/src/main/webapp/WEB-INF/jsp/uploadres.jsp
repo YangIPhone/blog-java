@@ -5,14 +5,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>§流い年§博客社区</title>
-<style>
-#articlecontent{color: #fff;}
-#articlecontent img{width: 200px;}
-</style>
 	<link rel="stylesheet" href="layui/css/layui.css">
 	<link rel="icon" type="image/png" href="image/favicon.png">
 	<script type="text/javascript" src="layui/layui.js"></script>
 	<script type="text/javascript" src="layui/layui.all.js"></script>
+	<script type="text/javascript" src="js/jquery-3.2.1.js"></script>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -27,7 +24,7 @@
     <li class="layui-nav-item">
         <a href="javascript:;">文章论坛</a>
         <dl class="layui-nav-child">
-          <dd><a href="articlelist?by=type&value=技术博客">技术博客</a></dd>
+         <dd><a href="articlelist?by=type&value=技术博客">技术博客</a></dd>
           <dd><a href="articlelist?by=type&value=心情随笔">心情随笔</a></dd>
           <dd><a href="articlelist?by=type&value=生活琐事">生活琐事</a></dd>
         </dl>
@@ -36,7 +33,7 @@
     </ul>
     
     <ul class="layui-nav layui-layout-right">
-      <li class="layui-nav-item">
+      	<li class="layui-nav-item">
         <a href="javascript:;">
           <img src="${sessionScope.headimg}" class="layui-nav-img">
          ${sessionScope.username}
@@ -45,11 +42,11 @@
           <dd><a href="basicinfor">基本资料</a></dd>
           <dd><a href="">安全设置</a></dd>
         </dl>
-      </li>
-      <li class="layui-nav-item">
-    <a href="">消息中心<span class="layui-badge">9</span></a>
-  </li>
-      <li class="layui-nav-item"><a href="loginout">退出</a></li>
+      	</li>
+      	<li class="layui-nav-item">
+    		<a href="">消息中心<span class="layui-badge">9</span></a>
+  		</li>
+      	<li class="layui-nav-item"><a href="loginout">退出</a></li>
     </ul>
   </div>
   
@@ -65,35 +62,51 @@
             <dd><a href="articlelist?by=uid&value=${sessionScope.userid }">我的博客</a></dd>
             <dd><a href="reslist?by=uid&value=${sessionScope.userid }">我的资源</a></dd>
           </dl>
-        </li>
-        <li class="layui-nav-item"><a href="warticle?userid=${sessionScope.userid }"><i class="layui-icon">&#xe642;</i>写博客</a></li>
+        </li><li class="layui-nav-item"><a href="warticle?userid=${sessionScope.userid }"><i class="layui-icon">&#xe642;</i>写博客</a></li>
         <li class="layui-nav-item"><a href="uploadres"><i class="layui-icon">&#xe681;</i>上传资源</a></li>
         <li class="layui-nav-item"><a href=""><i class="layui-icon">&#xe63a;</i>我要提问</a></li>
       </ul>
     </div>
   </div>
 
-<div class="layui-body" style="background: #555" >
+	<div class="layui-body" style="background: #555" >
     <!-- 内容主体区域 -->
-  <div style="padding: 15px;" >
-  <div class="layui-col-md9">
-   <font size="5px" color="#fff">最新文章</font> 
-	<hr class="layui-bg-red">
-	<fieldset class="layui-elem-field">
-  		<legend><font size="5px" color="#fff">${article.title}</font></legend>
-  			<div id="articlecontent">
-    		${article.content}
-  			</div>
-	</fieldset>
-	  		<div style="color: #fff;">
-    		<span><a href="articlelist?by=uid&value=${article.userid}" style="color: #FFF;"><i class="layui-icon">&#xe66f;</i>作者:${article.username}</a></span>
-    		<span style="margin-left: 50px;"><a href="" style="color: #FFF;"><i class="layui-icon">&#xe6c6;</i></a>${article.clicknum}人已赞</span>
-    		<span style="margin-left: 50px;"><a href="articlelist?by=type&value=${article.type}" style="color: #FFF;"><i class="layui-icon">&#xe66e;</i>文章类型:${article.type}</a></span>
-    		<span style="margin-left: 50px;"><i class="layui-icon">&#xe637;</i>发布时间:${article.time}</span>
-  			</div>
-    </div>
-  </div>
-</div>
+  		<div style="padding: 15px;" >
+  			<form class="layui-form layui-form-pane">
+			    <div class="layui-form-item" pane >
+			   	<label class="layui-form-label">上传者:</label>
+					<div class="layui-input-block">
+			      		<input type="text" name="username" id="username" value="${sessionScope.username}" disabled="disabled"autocomplete="off" class="layui-input">
+			    	</div>
+			  	</div>
+ 	
+			  	<div class="layui-form-item" pane >
+			  	<label class="layui-form-label">资源描述:</label>
+			  	    <div class="layui-input-block">
+			      		<input type="text" name="describe" id="describe"   placeholder="请输入资源描述，方便其他用户搜索该资源"  autocomplete="off" class="layui-input">
+			    	</div>
+			    </div>
+    		</form>
+	   		<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;color: #fff">
+	  			<legend>上传文件</legend>
+			</fieldset> 	 		
+			<div class="layui-upload">
+			  <button type="button" class="layui-btn layui-btn-normal" id="choosefile">选择文件</button> 
+			  <div class="layui-upload-list">
+			    <table class="layui-table">
+			      <thead>
+			        <tr><th>文件名</th>
+			        <th>大小</th>
+			        <th>状态</th>
+			        <th>操作</th>
+			      </tr></thead>
+			      <tbody id="file"></tbody>
+			    </table>
+			  </div>
+			  <button type="button" class="layui-btn" id="upload">开始上传</button>
+			</div> 
+     	</div>
+	</div>
   
   <div class="layui-footer" style="text-align:center;">
     <!-- 底部固定区域 -->
@@ -101,5 +114,6 @@
   </div>
 </div>
 <script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/uploadres.js"></script>
 </body>
 </html>

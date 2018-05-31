@@ -140,10 +140,10 @@ public class ArticleController {
 		default:
 			return "404page";
 		}
-		if(articlelist.size()==0)
-		{
-			return "404page";
-		}
+//		if(articlelist.size()==0)
+//		{
+//			return "404page";
+//		}
 		//总的记录条数
 		int total = (int) new PageInfo<>(articlelist).getTotal();		
 		//设置最后一页第一条记录

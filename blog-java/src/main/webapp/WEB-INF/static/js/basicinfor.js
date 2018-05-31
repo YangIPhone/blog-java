@@ -31,11 +31,11 @@ var uploadInst = upload.render({
       if(res.code==0){
     	  layer.open({
  			 title: '提示',
- 			 content: res.msg+"，3秒后自动跳转到相册",
+ 			 content: res.msg+"，3秒后自动跳转到主页",
  			});
-// 		setTimeout(function() {
-// 			location.href="index";
-// 		}, 3000);
+ 		setTimeout(function() {
+ 			location.href="index";
+ 		}, 3000);
       }else{ 
     	  layer.open({
   			 title: '提示',
