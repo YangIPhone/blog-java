@@ -1,6 +1,27 @@
-upload = layui.upload;
+var upload = layui.upload;
+var element = layui.element;
 var filesize;
 var filename;
+var time;
+
+//10毫秒获取一次进度信息
+$('#upload').click(function(){
+	time=setInterval("getprogress()", 10);
+});
+
+//获取进度信息
+function getprogress(){
+	$.post("getprogress",function(data){
+		var progress=$('#progress');
+		//将进度取整并加上%
+		element.progress('progress', Math.floor(data.progress)+"%");
+		progress.html(Number(data.progress)+"%");
+		if(data.progress==100.0){
+			window.clearInterval(time);
+		}
+	});
+}
+
 //上传
   var demoListView = $('#file')
   ,uploadListIns = upload.render({
@@ -17,7 +38,7 @@ var filename;
         var tr = $(['<tr id="upload-'+ index +'">'
           ,'<td>'+ file.name +'</td>'
           ,'<td>'+ (file.size/1014).toFixed(1) +'kb</td>'
-          ,'<td>等待上传</td>'
+          ,'<td id="zt">等待上传</td>'
           ,'<td>'
             ,'<button class="layui-btn layui-btn-mini demo-reload layui-hide">重传</button>'
             ,'<button class="layui-btn layui-btn-mini layui-btn-danger demo-delete">删除</button>'
@@ -39,13 +60,14 @@ var filename;
       });
     }
   
-  	,before: function(obj){ 	
+  	,before: function(obj){
+  		var zt=$("#zt");
+  		zt.html('<div class="layui-progress layui-progress-big" lay-filter="progress"><div class="layui-progress-bar" id="progress" style="color:#fff"></div></div>');
       //设置data参数
   	this.data.username=$('#username').val();
   	this.data.describe=$('#describe').val();
   	this.data.filename=filename;
    	this.data.filesize=filesize+"KB";
-  	
     }
   	
     ,done: function(res, index, upload){
@@ -54,7 +76,7 @@ var filename;
         ,tds = tr.children();
         tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
         tds.eq(3).html(''); //清空操作
-        return delete this.files[index]; //删除文件队列已经上传成功的文件
+        //return delete this.files[index]; //删除文件队列已经上传成功的文件
       }else{
     	  layer.open({
    			 title: '提示',

@@ -6,10 +6,10 @@ package com.yang.util;
  * 
  */
 public class Progress {
-	private String lsize;
-	private String progress;
-	private String speed;
-	private String ltime;
+	private String lsize;//剩余大小
+	private String progress;//当前进度
+	private String speed;//当前速度
+	private String ltime;//剩余时间
 
 	public String getLsize() {
 		return lsize;

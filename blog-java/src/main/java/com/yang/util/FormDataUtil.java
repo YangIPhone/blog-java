@@ -79,6 +79,52 @@ public class FormDataUtil {
 		//fileupload.setSizeMax(long sizeMax) 设置上传文件总量的最大值
 		//设置编码集，防止上传中文文件乱码问题
 		fileupload.setHeaderEncoding("utf-8");
+		
+		//监听文件上传状态
+				fileupload.setProgressListener(new ProgressListener() {			
+					
+					@Override
+					public void update(long bytesRead, long contentLength, int items) {
+//						try {
+//							Thread.sleep(1);
+//						} catch (InterruptedException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
+						Progress progress = new Progress();
+						long beginTime=System.currentTimeMillis();
+						// TODO Auto-generated method stub
+						//除以1024并四舍五入转换为KB
+						BigDecimal br=new BigDecimal(bytesRead).divide(new BigDecimal(1024), 2, BigDecimal.ROUND_HALF_UP);
+						BigDecimal cl=new BigDecimal(contentLength).divide(new BigDecimal(1024), 2, BigDecimal.ROUND_HALF_UP);
+						//剩余大小
+						BigDecimal ll=cl.subtract(br);
+						//已上传百分比
+						BigDecimal per=br.multiply(new BigDecimal(100)).divide(cl, 2, BigDecimal.ROUND_HALF_UP);
+						//上传速度
+						long nowTime=System.currentTimeMillis();
+						long useTime=(nowTime-beginTime)/1000;
+						BigDecimal speed=new BigDecimal(0);
+						BigDecimal lt=new BigDecimal(0);
+						if(useTime!=0) {
+						speed=br.divide(new BigDecimal(useTime), 2, BigDecimal.ROUND_HALF_UP);
+						}
+						//大概剩余时间
+						if(!speed.equals(new BigDecimal(0)))
+						{
+						lt=ll.divide(speed, 0, BigDecimal.ROUND_HALF_UP);
+						}
+						//将信息加入progress
+						progress.setLsize(ll.toString());//剩余大小
+						progress.setLtime(lt.toString());//剩余时间
+						progress.setProgress(per.toString());//当前进度
+						progress.setSpeed(speed.toString());//当前速度
+//						System.out.println("当前读取文件是第"+items+"个，已上传大小为:"+br+"KB,总大小为："+cl+"KB,已上传"+per+"%,已用时间："+useTime+"上传速度为"+speed+"KB/s,大概剩余还需"+lt+"秒<br>");
+						//将进度信息加入session
+						req.getSession().setAttribute("progress", progress);
+					}			
+				});
+				
 		try {
 			//利用ServletFileUpload类的parseRequest(Request req)解析request请求，返回值是一个FileItem类型的list
 			List<FileItem> list=fileupload.parseRequest(this.req);
@@ -119,45 +165,6 @@ public class FormDataUtil {
 			// TODO Auto-generated catch block
 			throw new RuntimeException(e);
 		}
-		
-		//监听文件上传状态
-		fileupload.setProgressListener(new ProgressListener() {
-			
-			@Override
-			public void update(long bytesRead, long contentLength, int items) {
-				Progress progress = new Progress();
-				long beginTime=System.currentTimeMillis();
-				// TODO Auto-generated method stub
-				//除以1024并四舍五入转换为KB
-				BigDecimal br=new BigDecimal(bytesRead).divide(new BigDecimal(1024), 2, BigDecimal.ROUND_HALF_UP);
-				BigDecimal cl=new BigDecimal(contentLength).divide(new BigDecimal(1024), 2, BigDecimal.ROUND_HALF_UP);
-				//剩余大小
-				BigDecimal ll=cl.subtract(br);
-				//已上传百分比
-				BigDecimal per=br.multiply(new BigDecimal(100)).divide(cl, 2, BigDecimal.ROUND_HALF_UP);
-				//上传速度
-				long nowTime=System.currentTimeMillis();
-				long useTime=(nowTime-beginTime)/1000;
-				BigDecimal speed=new BigDecimal(0);
-				BigDecimal lt=new BigDecimal(0);
-				if(useTime!=0) {
-				speed=br.divide(new BigDecimal(useTime), 2, BigDecimal.ROUND_HALF_UP);
-				}
-				//大概剩余时间
-				if(!speed.equals(new BigDecimal(0)))
-				{
-				lt=ll.divide(speed, 0, BigDecimal.ROUND_HALF_UP);
-				}
-				//将信息加入progress
-				progress.setLsize(ll.toString());//剩余大小
-				progress.setLtime(lt.toString());//剩余时间
-				progress.setProgress(per.toString());//当前进度
-				progress.setSpeed(speed.toString());//当前速度
-//				System.out.println("当前读取文件是第"+items+"个，已上传大小为:"+br+"KB,总大小为："+cl+"KB,已上传"+per+"%,已用时间："+useTime+"上传速度为"+speed+"KB/s,大概剩余还需"+lt+"秒<br>");
-				//将进度信息加入session
-				req.getSession().setAttribute("Progress", progress);
-			}			
-		});
 		formdata.put("filenamelist", filenamelist);
 		formdata.put("src", srclist);
 		return formdata;

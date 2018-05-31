@@ -21,6 +21,7 @@ import com.yang.pojo.User;
 import com.yang.service.ArticleService;
 import com.yang.service.UserService;
 import com.yang.util.FormDataUtil;
+import com.yang.util.Progress;
 
 @Controller
 public class IndexController {
@@ -154,5 +155,13 @@ public class IndexController {
 			tips.put("msg", "修改成功");
 		}
 		return JSONObject.toJSONString(tips);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/getprogress",method=RequestMethod.POST)
+	public String getprogress(HttpSession session)
+	{
+		Progress progress=(Progress) session.getAttribute("progress");
+		return JSONObject.toJSONString(progress);
 	}
 }
