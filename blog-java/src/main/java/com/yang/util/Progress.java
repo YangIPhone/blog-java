@@ -1,4 +1,4 @@
-package com.yang.bean;
+package com.yang.util;
 
 /**
  * 存储文件进度的实体类

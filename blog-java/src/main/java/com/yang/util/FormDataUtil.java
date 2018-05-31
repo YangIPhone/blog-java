@@ -20,8 +20,6 @@ import org.apache.commons.fileupload.ProgressListener;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import com.yang.bean.Progress;
-
 /**
  * 上传工具类
  * @author Shinelon
@@ -127,7 +125,7 @@ public class FormDataUtil {
 			
 			@Override
 			public void update(long bytesRead, long contentLength, int items) {
-				Progress progress = null;
+				Progress progress = new Progress();
 				long beginTime=System.currentTimeMillis();
 				// TODO Auto-generated method stub
 				//除以1024并四舍五入转换为KB
