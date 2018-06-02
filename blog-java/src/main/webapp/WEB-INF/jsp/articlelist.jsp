@@ -67,13 +67,12 @@
           <a class="" href="javascript:;"><i class="layui-icon">&#xe66f;</i>个人空间</a>
           <dl class="layui-nav-child">
             <dd><a href="album?userid=${sessionScope.userid }">专属相册</a></dd>
-            <dd><a href="javascript:;">留言列表</a></dd>
             <dd><a href="articlelist?by=uid&value=${sessionScope.userid }">我的博客</a></dd>
             <dd><a href="reslist?by=uid&value=${sessionScope.userid }">我的资源</a></dd>
           </dl>
         </li><li class="layui-nav-item"><a href="warticle?userid=${sessionScope.userid }"><i class="layui-icon">&#xe642;</i>写博客</a></li>
         <li class="layui-nav-item"><a href="uploadres"><i class="layui-icon">&#xe681;</i>上传资源</a></li>
-        <li class="layui-nav-item"><a href=""><i class="layui-icon">&#xe63a;</i>我要提问</a></li>
+        <li class="layui-nav-item"><a href="queandans"><i class="layui-icon">&#xe63a;</i>我要提问</a></li>
       </ul>
     </div>
   </div>
@@ -84,11 +83,11 @@
 	<div class="layui-form news_list">
 	  	<table class="layui-table">
 		    <colgroup>
-				<col width="15%">
-				<col width="5%">
-				<col width="15%">
-				<col width="50%">
+				<col width="17%">
 				<col width="10%">
+				<col width="12%">
+				<col width="50%">
+				<col width="6%">
 				<col width="5%">
 		    </colgroup>
 		    <thead>

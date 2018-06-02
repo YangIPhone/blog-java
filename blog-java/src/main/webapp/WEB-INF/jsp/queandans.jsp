@@ -1,20 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@page import="java.time.LocalDateTime" %>
 <!DOCTYPE html >
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>§流い年§博客社区</title>
 	<link rel="stylesheet" href="layui/css/layui.css">
-	<link rel="stylesheet" type="text/css" href="css/normalize.css" />
-	<link rel="stylesheet" type="text/css" href="css/htmleaf-demo.css">
-	<link rel="stylesheet" type="text/css" href="css/polaroid-gallery.css"/>
 	<link rel="icon" type="image/png" href="image/favicon.png">
 	<script type="text/javascript" src="layui/layui.js"></script>
 	<script type="text/javascript" src="layui/layui.all.js"></script>
 	<script type="text/javascript" src="js/jquery-3.2.1.js"></script>
 </head>
-<body class="layui-layout-body fullscreen">
+<body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
   <div class="layui-header">
     <a href="index"><div class="layui-logo">§流い年§博客社区</div></a>
@@ -74,27 +72,29 @@
 <div class="layui-body" style="background: #555" >
     <!-- 内容主体区域 -->
   <div style="padding: 15px;" >
-  <input type="text"  id="userid" value="${userid}" hidden/>
-  <input type="text"  id="aname" value="${aname}" hidden/>
-   	<div id="gallery" class="fullscreen"></div>
-	<div id="nav">
-	    <button id="preview">&lt; 前一张</button>
-	    <button id="next">下一张 &gt;</button>
-	</div>
+	  <form class="layui-form layui-form-pane" id="article">
+		  <input type="text" name="userid" id="userid" value="${sessionScope.userid}" hidden/>
+		  <input type="text" name="username" id="username" value="${sessionScope.username}" hidden/>
+		  <div class="layui-form-item" pane> 
+		    <label class="layui-form-label">问题标题:</i></label>
+		    <div class="layui-input-block">
+		      <input type="text" name="questitle" id="questitle"  placeholder="问题标题" autocomplete="off" class="layui-input">
+		    </div>
+		  </div>			  
+		  <%LocalDateTime localtime=LocalDateTime.now();%>
+		  <input type="datetime-local" name="time" id="time" value="<%=localtime.toString() %>" hidden/>
+		  <textarea id="questino" name="questino" style="display: none;"></textarea>
+	  </form>
+	  <button class="layui-btn" id="submit">寻求帮助</button>
   </div>
 </div>
-
-  <div class="layui-footer" style="text-align:center;color:#000">
+  
+  <div class="layui-footer" style="text-align:center;">
     <!-- 底部固定区域 -->
-    © §流い年§ Blog <a style="color:#000" href="http://www.miibeian.gov.cn/">渝ICP备17008739号-1</a>
+    © §流い年§ Blog <a href="http://www.miibeian.gov.cn/">渝ICP备17008739号-1</a>
   </div>
 </div>
 <script type="text/javascript" src="js/index.js"></script>
-<script type="text/javascript" src="js/polaroid-gallery.js"></script>
-	<script>
-	    window.onload = function () {	    	
-	        new polaroidGallery();
-	    }
-	</script>
+<script type="text/javascript" src="js/queandans.js"></script>
 </body>
 </html>
