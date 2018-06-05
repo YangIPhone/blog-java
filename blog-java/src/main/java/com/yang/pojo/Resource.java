@@ -1,6 +1,7 @@
 package com.yang.pojo;
 
 public class Resource {
+	private int resid;
 	private String userid;
 	private String username;
 	private String filename;
@@ -8,6 +9,10 @@ public class Resource {
 	private String filesize;
 	private String filesrc;
 	private String time;
+	
+	public int getResid() {
+		return resid;
+	}
 	public String getUserid() {
 		return userid;
 	}

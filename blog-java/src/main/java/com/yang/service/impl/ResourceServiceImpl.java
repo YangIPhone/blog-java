@@ -35,4 +35,9 @@ public class ResourceServiceImpl implements ResourceService {
 		// TODO Auto-generated method stub
 		return resourceMapper.addResource(resource);
 	}
+	@Override
+	public Resource getResourceByResid(String resid) {
+		// TODO Auto-generated method stub
+		return resourceMapper.getResourceByResid(resid);
+	}
 }

@@ -1,11 +1,19 @@
 package com.yang.controller;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +29,7 @@ import com.github.pagehelper.PageInfo;
 import com.yang.pojo.Resource;
 import com.yang.service.ResourceService;
 import com.yang.util.FormDataUtil;
+import com.yang.util.IOUtil;
 import com.yang.util.Page;
 
 @Controller
@@ -142,5 +151,30 @@ public class ResourceController {
 		model.addAttribute("limit", limit);
 		model.addAttribute("reslist", resList);
 		return "reslist";
+	}
+	
+	/**
+	 * 下载资源文件
+	 * @param req
+	 * @param res
+	 * @param session
+	 * @return
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	@ResponseBody
+	@RequestMapping(value="/download",method=RequestMethod.GET)
+	public String download(HttpServletRequest req,HttpServletResponse res,HttpSession session) throws ServletException, IOException
+	{
+		String resid=req.getParameter("resid");
+		Resource resource=resourceService.getResourceByResid(resid);
+		String filename=resource.getFilename();
+		String filesrc=resource.getFilesrc();
+		res.setHeader("Content-Disposition", "attachment;filename="+URLEncoder.encode(filename, "utf-8"));
+		InputStream input=new FileInputStream(req.getServletContext().getRealPath("WEB-INF/"+filesrc));
+		OutputStream output=res.getOutputStream();
+		IOUtil.inToOut(input, output);
+		input.close();
+		return "download begin";
 	}
 }

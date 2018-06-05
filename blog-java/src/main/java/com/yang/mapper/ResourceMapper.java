@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import com.yang.pojo.Resource;
 
 public interface ResourceMapper {
+	Resource getResourceByResid(@Param("resid") String resid);
 	List<Resource> resListByAll();
 	List<Resource> resListByUserid(@Param("userid") String userid);
 	List<Resource> resListByDescribe(@Param("describe") String describe);
