@@ -10,6 +10,7 @@ layedit.set({
 	
 //绑定编辑器
 var text=layedit.build('questino',{
+	 tool: ['strong', 'italic', 'underline', 'del', 'link','unlink','image'],
 	 height: 500//设置编辑器高度
 }); 
 

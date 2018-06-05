@@ -10,6 +10,7 @@ layedit.set({
 	  }
 	});
 var text=layedit.build('demo',{
+	 tool: ['strong', 'italic', 'underline', 'del', 'link','unlink','image'],
 	 height: 500//设置编辑器高度
 }); //建立编辑器
 $('#submit').click(function(){

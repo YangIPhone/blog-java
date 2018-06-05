@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.yang.mapper.AnswerMapper">
+	    <select id="getAnswerById" resultType="Answer">
+	        SELECT u.headimg ,u.username,u.userid,a.answer FROM user u,answer a WHERE a.quesid=#{quesid} and u.userid=a.userid    
+	    </select>	
+	    <insert id="addAnswer" parameterType="Answer" >
+	        insert into answer (userid,username,quesid,answer)
+	          values (#{userid},#{username},#{quesid},#{answer})    
+	    </insert> 
+	</mapper>
+

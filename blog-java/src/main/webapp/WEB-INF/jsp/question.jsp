@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html >
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>§流い年§博客社区</title>
+	<style>
+	#question{color: #fff;min-height: 100px;}
+	#question img{width: 400px;}
+	#answer img{width: 400px;}
+	</style>
 	<link rel="stylesheet" href="layui/css/layui.css">
 	<link rel="icon" type="image/png" href="image/favicon.png">
 	<script type="text/javascript" src="layui/layui.js"></script>
@@ -72,7 +78,33 @@
 <div class="layui-body" style="background: #555" >
     <!-- 内容主体区域 -->
   <div style="padding: 15px;" >
-   	内容主体区域
+   	<fieldset class="layui-elem-field">
+  		<legend><font size="5px" color="#fff">${question.questitle}</font></legend>
+  			<div id="question">
+    		${question.question}
+  			</div>
+	</fieldset>
+	 <div style="color: #fff;margin-bottom: 100px;">
+    	<span><a href="articlelist?by=uid&value=${question.userid}" style="color: #FFF;"><i class="layui-icon">&#xe66f;</i>发布者:${question.username}</a></span>
+    </div>
+    <div style="color: #fff;font-size:20px;margin-bottom: 10px;">
+    	<span>共${total}个回答</span>
+    </div>
+    <c:forEach items="${answers}" var="answer">
+    	<div class="layui-collapse" style="margin-bottom: 50px;">
+		  <div class="layui-colla-item">
+		    <h2 class="layui-colla-title"><img src="${answer.headimg}" class="layui-nav-img">${answer.username}</h2>
+		    <div class="layui-colla-content layui-show" style="color: #fff" id="answer">${answer.answer}</div>
+		  </div>
+	    </div>
+    </c:forEach>
+    <form class="layui-form layui-form-pane" id="article">
+	  <input type="text" name="userid" id="userid" value="${sessionScope.userid}" hidden/>
+	  <input type="text" name="username" id="username" value="${sessionScope.username}" hidden/>
+	  <input type="text" name="quesid" id="quesid" value="${question.quesid}" hidden/>
+	  <textarea id="demo" name="content" style="display: none;"></textarea>
+	</form>
+	<button class="layui-btn" id="submit">我要回答</button>
   </div>
 </div>
   
@@ -82,5 +114,6 @@
   </div>
 </div>
 <script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript" src="js/question.js"></script>
 </body>
 </html>

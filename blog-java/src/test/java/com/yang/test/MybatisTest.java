@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.yang.mapper.AnswerMapper;
+import com.yang.pojo.Answer;
 import com.yang.pojo.Question;
 import com.yang.pojo.Resource;
 import com.yang.service.QuestionService;
@@ -20,6 +22,8 @@ public class MybatisTest {
 	ResourceService resourceService;
 	@Autowired
 	QuestionService questionService;
+	@Autowired
+	AnswerMapper answerMapper;
 	@Test
 	public void testFindRes() {
 		String d="js";
@@ -44,4 +48,13 @@ public class MybatisTest {
 		question.setTime("2018-06-05 9:42:10");
 		questionService.addQuestion(question);
 	}
+	
+	@Test
+	public void testAnswer()
+	{
+		String quesid="1";
+		List<Answer> answer=answerMapper.getAnswerById(quesid);
+		System.out.println(answer.get(0).getHeadimg());
+	}
+	
 }
