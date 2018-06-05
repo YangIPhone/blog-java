@@ -1,11 +1,17 @@
 package com.yang.pojo;
 
 public class Question {
+	private int quesid;
 	private String userid;
 	private String username;
-	private String questitile;
+	private String questitle;
 	private String question;
 	private String time;
+	
+	
+	public int getQuesid() {
+		return quesid;
+	}
 	public String getUserid() {
 		return userid;
 	}
@@ -18,11 +24,11 @@ public class Question {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	public String getQuestitile() {
-		return questitile;
+	public String getQuestitle() {
+		return questitle;
 	}
-	public void setQuestitile(String questitile) {
-		this.questitile = questitile;
+	public void setQuestitle(String questitle) {
+		this.questitle = questitle;
 	}
 	public String getQuestion() {
 		return question;

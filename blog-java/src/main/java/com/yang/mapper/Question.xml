@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<mapper namespace="com.yang.mapper.QuestionMapper">
+	    <select id="getQuestionList" resultType="Question">
+	        select * from  question   order by time DESC
+	    </select>
+	    <select id="getQuestionById" resultType="Question">
+	        select * from  question   where quesid=#{quesid} order by time DESC
+	    </select>
+	    <select id="getQuestionByUid" resultType="Question">
+	        select * from  question   where userid=#{userid} 
+	    </select>
+	    <insert id="addQuestion" parameterType="Question" >
+	        insert into question (userid,username,questitle,question,time)
+	          values (#{userid},#{username},#{questitle},#{question},#{time})    
+	    </insert> 
+	</mapper>
+

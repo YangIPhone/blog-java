@@ -19,7 +19,7 @@ $('#submit').click(function(){
 	var question=layedit.getContent(text);
 	var questitle=$('#questitle').val();
 	var time=$('#time').val();
-	var url="";
+	var url="addquestion";
 	if(questitle==""){
 		layer.open({
 			 title: '提示',
@@ -27,7 +27,7 @@ $('#submit').click(function(){
 			});
 		return;
 	}
-	if(content=="")
+	if(question=="")
 	{
 		layer.open({
 			 title: '提示',
@@ -44,7 +44,9 @@ $('#submit').click(function(){
 					 title: '提示',
 					 content: data.msg,
 					});
-				location.href="index";
+				setTimeout(function() {
+					location.href="queslist";
+				}, 3000);
 				}else 
 				{
 					if(data.status=="NO")

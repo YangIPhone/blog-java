@@ -8,14 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-import com.yang.mapper.ArticleMapper;
-import com.yang.mapper.ResourceMapper;
-import com.yang.mapper.UserMapper;
-import com.yang.pojo.Article;
+import com.yang.pojo.Question;
 import com.yang.pojo.Resource;
-import com.yang.pojo.User;
+import com.yang.service.QuestionService;
 import com.yang.service.ResourceService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -23,7 +18,8 @@ import com.yang.service.ResourceService;
 public class MybatisTest {	
 	@Autowired
 	ResourceService resourceService;
-	
+	@Autowired
+	QuestionService questionService;
 	@Test
 	public void testFindRes() {
 		String d="js";
@@ -36,5 +32,16 @@ public class MybatisTest {
 		List<Resource> res=resourceService.resListByAll();
 		System.out.println(res);
 	}
-
+	
+	@Test
+	public void testAddQuestion()
+	{
+		Question question=new Question();
+		question.setUserid("123456");
+		question.setUsername("§流い年§");
+		question.setQuestitle("JUnitTest");
+		question.setQuestion("JUnitTest");
+		question.setTime("2018-06-05 9:42:10");
+		questionService.addQuestion(question);
+	}
 }
