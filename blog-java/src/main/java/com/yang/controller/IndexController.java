@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -225,6 +226,15 @@ public class IndexController {
 		String phone=req.getParameter("phone");
 		//短信模板ID
 		String templateid="4013053";
+		//验证手机号的正则表达式
+		String pattern="^(13[0-9]|14[5|7]|15[0|1|2|3|5|6|7|8|9]|17[0|1|2|3|5|6|7|8|9]|18[0|1|2|3|5|6|7|8|9])\\d{8}$";
+		boolean isPhone = Pattern.matches(pattern, phone);
+		if(!isPhone)
+		{
+			tips.put("code", "2");
+			tips.put("msg", "请输入正确的手机号");
+			return JSONObject.toJSONString(tips);
+		}
 		//发送验证信息
 		SendCodeUtil sendcode=new SendCodeUtil();
 		Map<String,String> data=new HashMap<>();
@@ -242,12 +252,18 @@ public class IndexController {
 			tips.put("code", "0");
 			tips.put("msg", "验证码已发送至您的手机");
 		}else {
-			tips.put("code", "2");
+			tips.put("code", "3");
 			tips.put("msg", "验证码发送失败");
 		}
 		return JSONObject.toJSONString(tips);
 	}
 	
+	/**
+	 * 注册用户
+	 * @param req
+	 * @param session
+	 * @return
+	 */
 	@ResponseBody
 	@RequestMapping(value="register",method=RequestMethod.POST)
 	public String registeruser(HttpServletRequest req,HttpSession session)
@@ -264,10 +280,20 @@ public class IndexController {
 			tips.put("msg", "所有项为必填");
 			return JSONObject.toJSONString(tips);
 		}
+		//验证用户账号的正则表达式
+		String pattern="^[A-Za-z0-9]{8,15}$";
+		boolean isuserid = Pattern.matches(pattern, userid);
+		boolean ispassword=Pattern.matches(pattern, password);
+		if(!isuserid||!ispassword)
+			{
+				tips.put("code", "2");
+				tips.put("msg", "账号和密码只能是8-15位的字母或数字组合");
+				return JSONObject.toJSONString(tips);
+			}
 		User u=userService.getUserByUserid(userid);
 		if(u!=null)
 		{
-			tips.put("code", "2");
+			tips.put("code", "3");
 			tips.put("msg", "该账号已被注册，换一个吧");
 			return JSONObject.toJSONString(tips);
 		}
@@ -286,7 +312,7 @@ public class IndexController {
 			tips.put("code", "0");
 			tips.put("msg", "注册成功");
 		}else {
-			tips.put("code", "3");
+			tips.put("code", "4");
 			tips.put("msg", "手机验证码错误");
 		}
 		return JSONObject.toJSONString(tips);
