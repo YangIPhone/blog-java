@@ -10,6 +10,10 @@
 	    <select id="getUserByUseridAndPwd" resultType="User" parameterType="string">
 	    	select * from user where userid= #{userid}  and password= #{password} 
 	    </select>
+	    <insert id="addUser" parameterType="User">
+	    insert into user (userid,username,phone,headimg,password) 
+	    values (#{userid},#{username},#{phone},#{headimg},#{password})
+	    </insert>
 	    <update id="updateUser" parameterType="User">
 	    update user set username=#{username},headimg=#{headimg} where userid= #{userid}
 	    </update>

@@ -1,6 +1,9 @@
 package com.yang.test;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,12 +11,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.alibaba.fastjson.JSON;
 import com.yang.mapper.AnswerMapper;
 import com.yang.pojo.Answer;
 import com.yang.pojo.Question;
 import com.yang.pojo.Resource;
 import com.yang.service.QuestionService;
 import com.yang.service.ResourceService;
+import com.yang.util.SendCodeUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:applicationContext.xml")
@@ -55,6 +60,22 @@ public class MybatisTest {
 		String quesid="1";
 		List<Answer> answer=answerMapper.getAnswerById(quesid);
 		System.out.println(answer.get(0).getHeadimg());
+	}
+	
+	@Test
+	public void testSendCode() throws IOException
+	{
+		String codeLen="6";
+		String phone="13512393403";
+		String templateid="4013053";
+		SendCodeUtil sendcode=new SendCodeUtil();
+		Map<String,String> data=new HashMap<>();
+		data.put("templateid", templateid);
+		data.put("mobile",phone);
+		data.put("codeLen", codeLen);
+		String result=sendcode.httpByPost(data);
+		Map maps = (Map)JSON.parse(result);
+		System.out.println(maps);
 	}
 	
 }

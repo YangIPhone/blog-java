@@ -5,6 +5,7 @@ public class User {
 	private String username;
 	private String password;
 	private String headimg;
+	private String phone;
 	public String getUserid() {
 		return userid;
 	}
@@ -28,5 +29,11 @@ public class User {
 	}
 	public void setHeadimg(String headimg) {
 		this.headimg = headimg;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}	
 }

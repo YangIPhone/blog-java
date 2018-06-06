@@ -25,6 +25,11 @@ public class UserserviceImpl implements UserService {
 		return userMapper.getUserByUseridAndPwd(userid,password);
 	}
 	@Override
+	public int addUser(User user) {
+		// TODO Auto-generated method stub
+		return userMapper.addUser(user);
+	}
+	@Override
 	public int updateUser(User user) {
 		// TODO Auto-generated method stub
 		return userMapper.updateUser(user);

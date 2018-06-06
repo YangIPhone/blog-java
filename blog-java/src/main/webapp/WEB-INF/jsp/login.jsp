@@ -24,7 +24,7 @@
 <img  src="image/logoa.png">
 <form class="layui-form layui-form-pane" style="margin-top:25px;" id="form" method="post">
   <div class="layui-form-item" pane> 
-    <label class="layui-form-label"><i class="layui-icon layui-icon-user">用户名</i>   </label>
+    <label class="layui-form-label"><i class="layui-icon layui-icon-user">账号</i>   </label>
     <div class="layui-input-block">
       <input type="text" name="userid" id="userid" required  placeholder="请输入账号" autocomplete="off" class="layui-input">
     </div>
@@ -38,7 +38,7 @@
 </form>
 	<div class="layui-form-item" pane> 
      <button class="layui-btn layui-btn-fluid" id="login">登录</button>
-     <a style="position: absolute;right:0px;color: #fff;">立即加入</a>
+     <a href="register" style="position: absolute;right:0px;color: #fff;">立即加入</a>
      
    </div>
 </div>
