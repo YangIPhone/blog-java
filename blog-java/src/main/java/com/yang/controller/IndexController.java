@@ -247,6 +247,7 @@ public class IndexController {
 //		System.out.println(result);
 		if(200==(int)datamap.get("code"))
 		{
+			//删除图片验证码，防止一个验证码多次验证
 			session.removeAttribute("imgcode");
 			String phonecode=(String) datamap.get("obj");
 			session.setAttribute("phonecode", phonecode);
@@ -270,7 +271,7 @@ public class IndexController {
 	public String registeruser(HttpServletRequest req,HttpSession session)
 	{	
 		Map<String,String> tips=new HashMap<>();
-		String userid=req.getParameter("userid");
+		String userid=req.getParameter("phone");
 		String username=req.getParameter("username");
 		String phone=req.getParameter("phone");
 		String password=req.getParameter("password");
@@ -281,21 +282,20 @@ public class IndexController {
 			tips.put("msg", "所有项为必填");
 			return JSONObject.toJSONString(tips);
 		}
-		//验证用户账号的正则表达式
+		//验证用户密码的正则表达式
 		String pattern="^[A-Za-z0-9]{8,15}$";
-		boolean isuserid = Pattern.matches(pattern, userid);
 		boolean ispassword=Pattern.matches(pattern, password);
-		if(!isuserid||!ispassword)
+		if(!ispassword)
 			{
 				tips.put("code", "2");
-				tips.put("msg", "账号和密码只能是8-15位的字母或数字组合");
+				tips.put("msg", "密码只能是8-15位的字母或数字组合");
 				return JSONObject.toJSONString(tips);
 			}
 		User u=userService.getUserByUserid(userid);
 		if(u!=null)
 		{
 			tips.put("code", "3");
-			tips.put("msg", "该账号已被注册，换一个吧");
+			tips.put("msg", "该手机号已被注册，换一个吧");
 			return JSONObject.toJSONString(tips);
 		}
 		String sphonecode=(String) session.getAttribute("phonecode");
@@ -309,11 +309,52 @@ public class IndexController {
 			//设置默认头像
 			user.setHeadimg("http://t.cn/RCzsdCq");
 			userService.addUser(user);
+			//删除手机验证码，防止一个验证码多次验证
 			session.removeAttribute("phonecode");
 			tips.put("code", "0");
 			tips.put("msg", "注册成功");
 		}else {
 			tips.put("code", "4");
+			tips.put("msg", "手机验证码错误");
+		}
+		return JSONObject.toJSONString(tips);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="backpwd",method=RequestMethod.POST)
+	public String backPwd(HttpServletRequest req,HttpSession session)
+	{
+		String phone=req.getParameter("phone");
+		String password=req.getParameter("password");
+		String phonecode=req.getParameter("phonecode");
+		Map<String,String> tips=new HashMap<>();
+		if("".equals(phone)||"".equals(password)||"".equals(phonecode))
+		{
+			tips.put("code", "1");
+			tips.put("msg", "所有项为必填");
+			return JSONObject.toJSONString(tips);
+		}
+		//验证用户密码的正则表达式
+		String pattern="^[A-Za-z0-9]{8,15}$";
+		boolean ispassword=Pattern.matches(pattern, password);
+		if(!ispassword)
+			{
+				tips.put("code", "2");
+				tips.put("msg", "密码只能是8-15位的字母或数字组合");
+				return JSONObject.toJSONString(tips);
+			}
+		String sphonecode=(String) session.getAttribute("phonecode");
+		if(sphonecode!=null&&sphonecode.equals(phonecode))
+		{
+			String userid=phone;
+			String newpassword=password;
+			userService.updateUserPwd(userid, newpassword);
+			//删除手机验证码，防止一个验证码多次验证
+			session.removeAttribute("phonecode");
+			tips.put("code", "0");
+			tips.put("msg", "密码已修改");
+		}else {
+			tips.put("code", "3");
 			tips.put("msg", "手机验证码错误");
 		}
 		return JSONObject.toJSONString(tips);

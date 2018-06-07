@@ -34,7 +34,6 @@ $('#getphonecode').click(function(){
 $('#register').click(function(){
 	var url="";
 	var username=$('#username').val();
-	var userid=$('#userid').val();
 	var phone=$('#phone').val();
 	var phonecode=$('#phonecode').val();
 	var password=$('#password').val();
@@ -45,16 +44,7 @@ $('#register').click(function(){
 			 content: "昵称不能为空",
 			});
 		return;
-		}
-	
-	if(userid=="")
-	{
-	layer.open({
-		 title: '提示',
-		 content: "账号不能为空",
-		});
-	return;
-	}
+		}	
 	
 	if(phonecode=="")
 	{
@@ -73,7 +63,7 @@ $('#register').click(function(){
 		});
 	return;
 	}
-	$.post(url,{username:username,userid:userid,phone:phone,phonecode:phonecode,password:password},
+	$.post(url,{username:username,phone:phone,phonecode:phonecode,password:password},
 			function(data){
 			if(data.code==0)
 			{

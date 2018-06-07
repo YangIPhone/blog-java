@@ -25,14 +25,7 @@
     <div class="layui-input-block">
       <input type="text" name="username" id="username" required  placeholder="请输入昵称" autocomplete="off" class="layui-input">
     </div>
-  </div>
-  
-  <div class="layui-form-item" pane> 
-    <label class="layui-form-label"><i class="layui-icon layui-icon-user">账号</i>   </label>
-    <div class="layui-input-block">
-      <input type="text" name="userid" id="userid" required  placeholder="请输入账号" autocomplete="off" class="layui-input">
-    </div>
-  </div>
+  </div>  
   
   <div class="layui-form-item" pane>
     <label class="layui-form-label"><i class="layui-icon">&#xe678;</i>手机</label>
