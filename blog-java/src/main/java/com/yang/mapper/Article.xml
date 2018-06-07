@@ -17,7 +17,7 @@
 	    	select * from article where type= #{type}
 	    </select>
 	    <insert id="addArticle" parameterType="Article" >
-	        insert into Article (title,content,type,userid,username,time,clicknum)
+	        insert into article (title,content,type,userid,username,time,clicknum)
 	          values (#{title},#{content},#{type},#{userid},#{username},#{time},#{clicknum})    
 	    </insert>
 	    <update id="updateArticle" parameterType="Article" >

@@ -8,7 +8,7 @@
 <title>§流い年§博客社区</title>
 	<style>
 	#content img{height: 200px;position: relative;top:10px;}
-	#content div{color: #fff;size:20px; overflow : hidden;min-height:35px;
+	#content div{color: #fff;size:20px; overflow : hidden;min-height:35px;max-height:35px;
 				 text-overflow: ellipsis;
 				 display: -webkit-box;
 				 -webkit-line-clamp: 2;
