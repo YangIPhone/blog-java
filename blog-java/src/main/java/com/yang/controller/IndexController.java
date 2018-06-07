@@ -247,6 +247,7 @@ public class IndexController {
 //		System.out.println(result);
 		if(200==(int)datamap.get("code"))
 		{
+			session.removeAttribute("imgcode");
 			String phonecode=(String) datamap.get("obj");
 			session.setAttribute("phonecode", phonecode);
 			tips.put("code", "0");
